@@ -1,17 +1,19 @@
 <template>
   <div class="discovery">
     <Banner />
-    <NewPlaylists></NewPlaylists>
+    <NewPlaylists />
+    <NewSongs />
   </div>
 </template>
 
 <script>
 import Banner from './childcomps/Banner.vue'
 import NewPlaylists from './childcomps/NewPlaylists.vue'
+import NewSongs from './childcomps/NewSongs.vue'
 
 export default {
   name:'Discovery',
-  components:{Banner,NewPlaylists}
+  components:{Banner,NewPlaylists,NewSongs}
 }
 </script>
 

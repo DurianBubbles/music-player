@@ -10,3 +10,9 @@ export const getPersonalized = (num) => request({
         limit:num
     }
 })
+
+// 获取最新音乐
+export const getNewSongs = () => request('/personalized/newsong')
+
+// 推荐mv
+export const getPersonalizedMv = () => request(`/personalized/mv`)
