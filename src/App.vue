@@ -1,14 +1,16 @@
 <template>
   <div id="app">
     <Layout />
+    <MiniPlayer />
   </div>
 </template>
 
 <script>
 import Layout from 'views/layout/Layout.vue'
+import MiniPlayer from 'components/MiniPlayer.vue'
 export default {
   name: 'App',
-  components:{Layout}
+  components:{Layout,MiniPlayer}
 }
 </script>
 

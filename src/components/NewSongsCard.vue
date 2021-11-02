@@ -7,7 +7,7 @@
     </div>
     <div class="info">
         <p>{{info.song.album.name}}</p>
-        <p>{{info.song.artists[0].name}}}</p>
+        <p>{{info.song.artists[0].name}}</p>
     </div>
   </div>
 </template>
