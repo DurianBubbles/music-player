@@ -33,6 +33,7 @@ export default {
     display: flex;
     flex-direction: column;
     background: #ededed;
+    padding-bottom: 80px;
   }
 
   .menu>a{

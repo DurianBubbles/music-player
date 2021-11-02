@@ -1,7 +1,10 @@
 <template>
   <div class="songscard">
     <span>{{index | formatNum}}</span>
-    <img :src="info.picUrl" alt="">
+    <div class="img-wrap">
+      <img :src="info.picUrl" alt="">
+      <PlayIcon class="playicon" size='22'/>
+    </div>
     <div class="info">
         <p>{{info.song.album.name}}</p>
         <p>{{info.song.artists[0].name}}}</p>
@@ -10,8 +13,10 @@
 </template>
 
 <script>
+import PlayIcon from 'base/PlayIcon.vue'
 export default {
   name:'NewSongsCard',
+  components:{PlayIcon},
   props:{
     info:{
       type:Object,
@@ -39,6 +44,7 @@ export default {
       display: flex;
       padding: 10px 10px;
       align-items: center;
+      cursor: pointer;
   }
 
   .songscard:hover{
@@ -50,9 +56,22 @@ export default {
       margin-right: 10px;
   }
 
+  .songscard .img-wrap{
+    width: 60px;
+    height: 60px;
+    position: relative;
+  }
+
+  .songscard .img-wrap .playicon{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+  }
+
   .songscard img{
-      width: 60px;
-      height: 60px;
+      width: 100%;
+      height: 100%;
   }
 
   .songscard .info{

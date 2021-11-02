@@ -3,6 +3,7 @@
     <Banner />
     <NewPlaylists />
     <NewSongs />
+    <NewMvs />
   </div>
 </template>
 
@@ -10,10 +11,11 @@
 import Banner from './childcomps/Banner.vue'
 import NewPlaylists from './childcomps/NewPlaylists.vue'
 import NewSongs from './childcomps/NewSongs.vue'
+import NewMvs from './childcomps/NewMvs.vue'
 
 export default {
   name:'Discovery',
-  components:{Banner,NewPlaylists,NewSongs}
+  components:{Banner,NewPlaylists,NewSongs,NewMvs}
 }
 </script>
 
@@ -25,6 +27,7 @@ export default {
     top: 49px;
     bottom: 0;
     padding-top: 10px;
+    padding-bottom:80px;
     overflow-y: scroll;
   }
 </style>
