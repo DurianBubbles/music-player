@@ -6,6 +6,9 @@ Vue.use(VueRouter)
 
 
 const Discovery = () => import('views/discovery/Discovery.vue')
+const Playlists = () => import('views/playlists/Playlists.vue')
+const Songs = () => import('views/songs/Songs.vue')
+const Mvs = () => import('views/mvs/Mvs.vue')
 
 
 const routes = [
@@ -16,6 +19,18 @@ const routes = [
     {
       path:'/discovery',
       component:Discovery
+    },
+    {
+      path:'/playlists',
+      component:Playlists
+    },
+    {
+      path:'/songs',
+      component:Songs
+    },
+    {
+      path:'/mvs',
+      component:Mvs
     }
 ]
 

@@ -1,22 +1,28 @@
 <template>
   <div class="discovery">
-      <h2>discovery</h2>
+    <Banner />
+    <NewPlaylists></NewPlaylists>
   </div>
 </template>
 
 <script>
+import Banner from './childcomps/Banner.vue'
+import NewPlaylists from './childcomps/NewPlaylists.vue'
+
 export default {
-  name:'Discovery'
+  name:'Discovery',
+  components:{Banner,NewPlaylists}
 }
 </script>
 
 <style scoped>
   .discovery{
     width: calc(100% - 250px);
-    background: blue;
     position: absolute;
     right: 0;
     top: 49px;
     bottom: 0;
+    padding-top: 10px;
+    overflow-y: scroll;
   }
 </style>
