@@ -2,6 +2,7 @@
   <div class="layout">
     <LayoutHeader />
     <LayoutMenu />
+    <router-view></router-view>
   </div>
 </template>
 
@@ -15,5 +16,8 @@ export default {
 </script>
 
 <style scoped>
-
+  .layout{
+    width: 100%;
+    height: 100vh;
+  }
 </style>
