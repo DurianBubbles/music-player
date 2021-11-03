@@ -30,4 +30,12 @@ export default {
     padding-bottom:80px;
     overflow-y: scroll;
   }
+  ::-webkit-scrollbar{
+    background: #ededed;
+    width:5px;
+  } 
+
+  ::-webkit-scrollbar-thumb{
+    background: #D0D0D0;
+  }
 </style>
