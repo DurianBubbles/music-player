@@ -28,9 +28,11 @@ export default {
 
 <style scoped>
   .mvcard{
-      width: calc(25% - 10px);
-      margin-right: 20px;
+    box-sizing: border-box;
+      width: 25%;
       cursor: pointer;
+      padding: 0 10px;
+      margin-bottom: 10px;
   }
 
   .mvcard:nth-child(4n){

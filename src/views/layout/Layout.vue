@@ -7,17 +7,17 @@
 </template>
 
 <script>
-import LayoutHeader from './childcomps/LayoutHeader.vue'
-import LayoutMenu from './childcomps/LayoutMenu.vue'
+import LayoutHeader from "./childcomps/LayoutHeader.vue";
+import LayoutMenu from "./childcomps/LayoutMenu.vue";
 export default {
-  name:'Layout',
-  components:{LayoutHeader,LayoutMenu}
-}
+  name: "Layout",
+  components: { LayoutHeader, LayoutMenu },
+};
 </script>
 
 <style scoped>
-  .layout{
-    width: 100%;
-    height: 100vh;
-  }
+.layout {
+  width: 100%;
+  height: 100vh;
+}
 </style>

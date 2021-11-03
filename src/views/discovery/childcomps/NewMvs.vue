@@ -32,8 +32,12 @@ export default {
   .newmvs{
       width: 80%;
       margin: 0 auto;
+      
   }
   .card-box{
       display: flex;
+      width: calc(100% + 20px);
+      transform: translateX(-10px);
   }
+
 </style>

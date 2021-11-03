@@ -29,7 +29,7 @@ export default {
       color: #d33a31;
       text-align: center;
       padding: 0 10px;
-      font-size: 13px;
+      font-size: 12px;
       height: 100%;
       line-height: 38px;
   }
