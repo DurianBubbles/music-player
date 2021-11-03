@@ -1,12 +1,15 @@
 <template>
   <div class="songcard">
-    <span class="song-num">01</span>
+    <span class="song-num">{{num}}</span>
     <div class="img-wrap">
-        <img src="https://p4.music.126.net/uD-hMz0jJVNWrSoK16CxEw==/109951166580177533.jpg?param=120y120" alt="">
+        <img :src="url" alt="">
         <PlayIcon class="play-icon" size="26"/>
     </div>
     <ul class="info-wrap">
-        <li v-for="(item,index) in info" :key="index">{{item}}</li>
+        <li>{{name}}</li>
+        <li>{{art}}</li>
+        <li>{{album}}</li>
+        <li>{{time}}</li>
     </ul>
   </div>
 </template>
@@ -16,11 +19,7 @@ import PlayIcon from 'base/PlayIcon.vue'
 export default {
   name:'SongCard',
   components:{PlayIcon},
-  data(){
-      return{
-          info:{name:'看月亮爬上来',art:'刘也',album:'看月亮爬上来',time:'03:34'}
-      }
-  }
+  props:['name','art','album','time','url','num']
 }
 </script>
 

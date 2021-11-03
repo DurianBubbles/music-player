@@ -1,12 +1,12 @@
 <template>
   <div class="mvcard">
     <div class="img-wrap">
-        <img :src="info.picUrl" alt="">
+        <img :src="url" alt="">
         <PlayIcon class="playicon"/>
-        <p class="playnum">{{info.playCount}}</p>
+        <p class="playnum">{{playcount}}</p>
     </div>
-    <p class="name">{{info.name}}</p>
-    <p class="artists">{{info.artistName}}</p>
+    <p class="name">{{name}}</p>
+    <p class="artists">{{art}}</p>
   </div>
 </template>
 
@@ -15,14 +15,7 @@ import PlayIcon from 'base/PlayIcon.vue'
 export default {
   name:'NewMvsCard',
   components:{PlayIcon},
-  props:{
-      info:{
-          type:Object,
-          default(){
-              return {}
-          }
-      }
-  }
+  props:['url','playcount','name','art']
 }
 </script>
 

@@ -1,16 +1,41 @@
 <template>
   <div class="songs">
-    <Tabs />
-    <Songlist />
+    <Tabs :tittle="tabs"/>
+    <Songlist :info='songlist'/>
   </div>
 </template>
 
 <script>
 import Tabs from 'base/Tabs.vue'
 import Songlist from './childComps/Songlist.vue'
+import {getTopSongs} from 'network/songs.js'
 export default {
   name:'Songs',
-  components:{Tabs,Songlist}
+  components:{Tabs,Songlist},
+  data(){
+    return{
+      // Tabs组件文本内容
+      tabs:[
+        "全部",
+        "华语",
+        "欧美",
+        "日本",
+        "韩国"
+      ],
+      // Songlist组件内容
+      songlist:[]
+    }
+  },
+  created(){
+    this.getSonglist()
+  },
+  methods:{
+    getSonglist(type){
+      getTopSongs(type).then(res => {
+        this.songlist = res.data.data
+      })
+    }
+  }
 }
 </script>
 

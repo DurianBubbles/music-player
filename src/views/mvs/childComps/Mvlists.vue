@@ -1,6 +1,6 @@
 <template>
   <div id="mvlist">
-    <NewMvsCard v-for="item in 40" :key="item" :info="info"/>
+    <NewMvsCard :url="item.cover" :playcount="item.playCount" :name="item.name" :art="item.artistName" v-for="(item,index) in mvslist" :key="index"/>
   </div>
 </template>
 
@@ -9,14 +9,7 @@ import NewMvsCard from 'components/NewMvsCard.vue'
 export default {
   name:'Mvlists',
   components:{NewMvsCard},
-  data(){
-      return{
-          info:{picUrl:'https://p1.music.126.net/U3JzFKN0T4hSqsbpNcMveA==/109951163426538025.jpg?param=500y260',
-          playCount:'320',
-          name:'Wuthering Heights',
-          artistName:'Kate Bush'}
-      }
-  }
+  props:['mvslist']
 }
 </script>
 
