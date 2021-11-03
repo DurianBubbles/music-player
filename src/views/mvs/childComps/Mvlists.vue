@@ -1,5 +1,5 @@
 <template>
-  <div class="mvlist">
+  <div id="mvlist">
     <NewMvsCard v-for="item in 40" :key="item" :info="info"/>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style scoped>
-  .mvlist{
+  #mvlist{
       display: flex;
       flex-wrap: wrap;
       width: calc(80% + 20px);

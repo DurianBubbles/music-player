@@ -4,15 +4,17 @@
     <div class="type">类型：<Tabs class="tab"/></div>
     <div class="sort">排序：<Tabs class="tab"/></div>
     <Mvlists />
+    <Pagination />
   </div>
 </template>
 
 <script>
 import Tabs from 'base/Tabs.vue'
 import Mvlists from './childComps/Mvlists.vue'
+import Pagination from 'base/Pagination.vue'
 export default {
   name:'Mvs',
-  components:{Tabs,Mvlists}
+  components:{Tabs,Mvlists,Pagination}
 }
 </script>
 
@@ -26,7 +28,6 @@ export default {
     padding-top: 10px;
     padding-bottom:80px;
     overflow-y: scroll;
-    min-width: 1200px;
   }
 
   .mvs>div:not(:last-child){

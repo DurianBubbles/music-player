@@ -1,11 +1,11 @@
 <template>
   <div class="playlistcard">
     <div class="img-wrap">
-        <img :src="info.picUrl" alt="">
-        <p class="desc">{{info.copywriter}}</p>
+        <img :src="url" alt="">
+        <p class="desc">{{desc}}</p>
         <PlayIcon class="playicon-wrap" size='36'/>
     </div>
-    <p>{{info.name}}</p>
+    <p>{{name}}</p>
   </div>
 </template>
 
@@ -14,14 +14,7 @@ import PlayIcon from 'base/PlayIcon.vue'
 export default {
   name:'PlaylistCard',
   components:{PlayIcon},
-  props:{
-      info:{
-          type:Object,
-          default(){
-              return {}
-          }
-      }
-  }
+  props:['url','desc','name']
 }
 </script>
 
