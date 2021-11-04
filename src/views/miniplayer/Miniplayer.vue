@@ -1,34 +1,53 @@
 <template>
   <div class="miniplayer">
-    <SongInfo />
+    <SongInfo :isShow="getAllInfo.isShowInfo" :nowtime="getAllInfo.nowtime | formatCurrent" :imgurl="getAllInfo.songimgurl" :name="getAllInfo.songname" :art="getAllInfo.art" :duration="getAllInfo.duration | transform"/>
     <Controller />
     <Mode />
-    <audio ref="audio"  src='http://m801.music.126.net/20211104141659/a6be4dbadb755ae694db9e0a2635d7a3/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/8076141464/27cc/3457/a19e/2bbc64e2e00c6944cdb0efc02e28e3c6.mp3'></audio>
+    <audio ref="audio" autoplay @timeupdate='refreshTime' :src="getAllInfo.url"></audio>
   </div>
 </template>
 
 <script>
-import SongInfo from 'base/SongInfo.vue'
-import Controller from 'base/Controller.vue'
-import Mode from 'base/Mode.vue'
+import SongInfo from "base/SongInfo.vue";
+import Controller from "base/Controller.vue";
+import Mode from "base/Mode.vue";
+
+import { mapGetters,mapMutations } from "vuex";
+import {formatDuration,formatCurrentTime} from '@/utils/index.js'
 export default {
-  name:'Miniplayer',
-  components:{SongInfo,Controller,Mode}
-        //   console.log(this.$refs.audio.duration/60)
-}
+  name: "Miniplayer",
+  components: { SongInfo, Controller, Mode },
+  computed: {
+    ...mapGetters(["getAllInfo"]),
+  },
+  methods:{
+    refreshTime(){
+      this.setNowTime(this.$refs.audio.currentTime)
+    },
+    ...mapMutations(['setNowTime'])
+  },
+  filters:{
+    transform(time){
+      return formatDuration(time)
+    },
+    formatCurrent(time){
+      return formatCurrentTime(time)
+    }
+  }
+};
 </script>
 
 <style scoped>
-  .miniplayer{
-    height: 60px;
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
-    justify-content: space-between;
-  }
+.miniplayer {
+  height: 60px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  justify-content: space-between;
+}
 </style>

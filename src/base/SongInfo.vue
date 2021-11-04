@@ -1,19 +1,19 @@
 <template>
   <div class="songinfo">
-    <div class="img-wrap">
+    <div class="img-wrap" v-if="isShow">
       <img
-        src="https://p2.music.126.net/AChXKfEyAyYQMQTKjSnYTw==/109951166162669700.jpg?param=80y80"
+        :src="imgurl"
         alt=""
       />
     </div>
-    <div class="info">
+    <div class="info" v-if="isShow">
       <p class="title">
-        <span class="songname">Love Story(Version) - </span>
-        <span class="art">Taylor Swift</span>
+        <span class="songname">{{name}} - </span>
+        <span class="art">{{art}}</span>
       </p>
       <p class="progress">
-        <span class="now">02:04 / </span>
-        <span class="duration">03:55</span>
+        <span class="now">{{nowtime}} / </span>
+        <span class="duration">{{duration}}</span>
       </p>
     </div>
   </div>
@@ -22,6 +22,7 @@
 <script>
 export default {
   name: "SongInfo",
+  props:['imgurl','name','art','duration','nowtime','isShow']
 };
 </script>
 

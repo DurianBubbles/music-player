@@ -30,7 +30,7 @@ export default {
     getPersonalized(10).then((res) => {
       this.list = res.data.result;
     });
-  },
+  }
 };
 </script>
 
