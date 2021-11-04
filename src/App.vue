@@ -7,7 +7,7 @@
 
 <script>
 import Layout from 'views/layout/Layout.vue'
-import MiniPlayer from 'components/MiniPlayer.vue'
+import MiniPlayer from 'views/miniplayer/Miniplayer.vue'
 export default {
   name: 'App',
   components:{Layout,MiniPlayer}
