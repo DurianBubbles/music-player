@@ -2,7 +2,7 @@
   <div class="songcard">
     <span class="song-num">{{num}}</span>
     <div class="img-wrap">
-        <img :src="url" alt="">
+        <img v-lazy="url" alt="">
         <PlayIcon class="play-icon" size="26"/>
     </div>
     <ul class="info-wrap">

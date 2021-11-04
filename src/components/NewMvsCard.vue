@@ -1,7 +1,7 @@
 <template>
   <div class="mvcard">
     <div class="img-wrap">
-        <img :src="url" alt="">
+        <img v-lazy="url" alt="">
         <PlayIcon class="playicon"/>
         <p class="playnum">{{playcount}}</p>
     </div>

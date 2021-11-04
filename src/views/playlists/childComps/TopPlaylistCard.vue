@@ -2,7 +2,7 @@
   <div class="topcard">
     <div class="wrap">
       <div class="img-wrap">
-        <img :src="imgurl" alt="" />
+        <img v-lazy="imgurl" alt="" />
       </div>
       <div class="content">
         <div class="tag-wrap">精品歌单</div>

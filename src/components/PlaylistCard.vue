@@ -1,7 +1,7 @@
 <template>
   <div class="playlistcard">
     <div class="img-wrap">
-        <img :src="url" alt="">
+        <img v-lazy="url" alt="">
         <p class="desc">{{desc}}</p>
         <PlayIcon class="playicon-wrap" size='36'/>
     </div>
