@@ -28,9 +28,10 @@ export const getMusicInfo = id => request({
 // 封装miniplayer所需数据
 export class SongInfo{
     constructor(info){
-        this.songname = info.data.songs[0].name
-        this.art = info.data.songs[0].ar.map(item => item.name).reduce((preValue,n) => preValue+'/'+n)
-        this.duration = info.data.songs[0].dt
-        this.songimgurl = info.data.songs[0].al.picUrl
+        this.songname = info.name
+        this.art = info.ar.map(item => item.name).reduce((preValue,n) => preValue+'/'+n)
+        this.duration = info.dt
+        this.songimgurl = info.al.picUrl
+        this.id = info.id
     }
 }

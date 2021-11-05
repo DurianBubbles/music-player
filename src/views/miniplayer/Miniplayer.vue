@@ -1,10 +1,10 @@
 <template>
   <div class="miniplayer">
-    <SongInfo :nowtime="getAllInfo.nowtime | formatCurrent" :imgurl="getAllInfo.songimgurl" :name="getAllInfo.songname" :art="getAllInfo.art" :duration="getAllInfo.duration | transform"/>
+    <SongInfo v-if="isShow" :nowtime="getNowTime | formatCurrent" :imgurl="getMiniCardInfo.songimgurl" :name="getMiniCardInfo.songname" :art="getMiniCardInfo.art" :duration="getMiniCardInfo.duration | transform"/>
     <Controller />
     <Mode @position="setVolume"/>
     <MusicProgress :current='progressIndex' @position="setcurrent"/>
-    <audio ref="audio" autoplay @timeupdate='refreshTime' :src="getAllInfo.url"></audio>
+    <audio ref="audio" autoplay  @timeupdate='refreshTime' :src="getUrl"></audio>
   </div>
 </template>
 
@@ -18,15 +18,15 @@ import { mapGetters,mapMutations } from "vuex";
 import {formatDuration,formatCurrentTime} from '@/utils/index.js'
 export default {
   name: "Miniplayer",
-  components: { SongInfo, Controller, Mode,MusicProgress },
+  components: { SongInfo, Controller,MusicProgress,Mode },
   data(){
     return{
       // 播放进度条位置
-      progressIndex:0
+      progressIndex:'0%'
     }
   },
   computed: {
-    ...mapGetters(["getAllInfo",'getProgressPosition'])
+    ...mapGetters(["getMiniCardInfo",'getProgressPosition','getNowTime','getUrl','isShow'])
   },
   methods:{
     refreshTime(){
@@ -34,7 +34,7 @@ export default {
       this.progressIndex = this.getProgressPosition
     },
     setcurrent(pos){
-      this.$refs.audio.currentTime = pos*(this.getAllInfo.duration/1000)
+      this.$refs.audio.currentTime = pos*(this.getMiniCardInfo.duration/1000)
     },
     setVolume(pos){
       this.$refs.audio.volume = pos
@@ -64,6 +64,6 @@ export default {
   align-items: center;
   padding: 0 20px;
   justify-content: space-between;
-  z-index: 11;
+  z-index: 12;
 }
 </style>

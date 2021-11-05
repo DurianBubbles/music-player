@@ -1,8 +1,8 @@
 <template>
   <div class="newsongs">
-      <Title>最新音乐</Title>
+      <Title>最新音乐</Title> 
       <div class="card-box">
-          <NewSongsCard @click.native="setUrl(item.id)" v-for="(item,index) in songs" :key="index" :info="item" :index="index"></NewSongsCard>
+          <NewSongsCard @click.native="setList({idlist,index})" v-for="(item,index) in songs" :key="index" :info="item" :index="index"></NewSongsCard>
       </div>
   </div>
 </template>
@@ -19,16 +19,20 @@ export default {
   components:{Title,NewSongsCard},
   created(){
       getNewSongs().then(res => {
+          //拿到所有歌曲信息 
           this.songs = res.data.result
+          this.idlist.push(res.data.result.map(item => item.id))
+          console.log(this.idlist)
       })
   },
   data(){
       return {
-        songs:[]
+        songs:[],
+        idlist:[]
       }
   },
   methods:{
-    ...mapActions(['setUrl'])
+    ...mapActions(['setList'])
   }
 }
 </script>

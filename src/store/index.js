@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+// getMusicUrl,
 import { getMusicUrl,getMusicInfo,SongInfo } from 'network/songs.js'
+import { resolve } from 'core-js/fn/promise'
 
 //安装插件
 Vue.use(Vuex)
@@ -11,20 +13,18 @@ const store = new Vuex.Store({
     state: {
         // 音乐url
         url: '',
-        // 音乐名
-        songname:'',
-        // 歌手
-        art:'',
         // 当前播放时长
         nowtime:0,
         // 歌曲时长
         duration:0,
-        // 歌曲imgurl
-        songimgurl:'',
         // 是否显示歌曲信息
         isShowInfo:false,
         // 音量
-        volume:1
+        volume:1,
+        // 播放列表
+        playlist:[],
+        // 当前播放歌曲index
+        currentIndex:0
     },
     mutations: {
       //设置音乐url   
@@ -33,19 +33,10 @@ const store = new Vuex.Store({
       },
       //设置歌曲信息   
       setInfo(state,allInfo){
-        state.songname = allInfo.songname
-        state.art = allInfo.art
-        state.duration = allInfo.duration
-        state.songimgurl = allInfo.songimgurl
+        state.playlist.push(allInfo)
       },
-      //清除歌曲信息   
-      cleanInfo(state){
-        state.url = ''
-        state.songname = ''
-        state.art = ''
-        state.nowtime = 0
-        state.duration = 0
-        state.songimgurl = ''
+      setcurrentIndex(state,index){
+        state.currentIndex = index
       },
       //设置当前播放时长   
       setNowTime(state,time){
@@ -57,25 +48,43 @@ const store = new Vuex.Store({
     },
     actions: {
         // 给音乐url赋值
-        setUrl(context,id) {
-            context.commit('cleanInfo')
-            // 设置歌曲url
-            getMusicUrl(id).then(res => {
-                context.commit('setUrl',res.data.data[0].url)
-            }),
+        setList(context,info) {
+            const ids = info.idlist.join(',')
             // 设置歌曲信息
-            getMusicInfo(id).then(res => {
-                context.commit('setInfo',new SongInfo(res))
+            getMusicInfo(ids).then(res => {
+              res.data.songs.map(item => context.commit('setInfo',new SongInfo(item)))
             })
+
+            console.log(context.state.playlist[info.index].id)
+
+            // 设置歌曲url
+            getMusicUrl(context.state.playlist[info.index].id).then(res => {
+                context.commit('setUrl',res.data.data[0].url)
+            })
+
+            // 设置当前播放歌曲index
+            context.commit('setcurrentIndex',info.index)
         }
     },
     getters: {
-        getAllInfo(state){
-            return state
-        },
         getProgressPosition(state){
-          const bottom = state.duration/1000
+          const bottom = state.playlist[state.currentIndex].duration/1000
           return ((state.nowtime/bottom) * 100).toFixed(2) + '%'
+        },
+        getPlayList(state){
+          return state.playlist
+        },
+        getMiniCardInfo(state){
+          return state.playlist[state.currentIndex]
+        },
+        getNowTime(state){
+          return state.nowtime
+        },
+        getUrl(state){
+          return state.url
+        },
+        isShow(state){
+          return state.playlist.length == 0 ? false : true
         }
     }
 })
