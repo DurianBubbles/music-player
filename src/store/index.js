@@ -22,7 +22,9 @@ const store = new Vuex.Store({
         // 歌曲imgurl
         songimgurl:'',
         // 是否显示歌曲信息
-        isShowInfo:false
+        isShowInfo:false,
+        // 音量
+        volume:1
     },
     mutations: {
       //设置音乐url   
@@ -48,6 +50,9 @@ const store = new Vuex.Store({
       //设置当前播放时长   
       setNowTime(state,time){
         state.nowtime = time
+      },
+      setVolume(state,volume){
+        state.volume = volume
       }
     },
     actions: {
@@ -67,6 +72,10 @@ const store = new Vuex.Store({
     getters: {
         getAllInfo(state){
             return state
+        },
+        getProgressPosition(state){
+          const bottom = state.duration/1000
+          return ((state.nowtime/bottom) * 100).toFixed(2) + '%'
         }
     }
 })

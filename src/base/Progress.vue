@@ -1,7 +1,7 @@
 <template>
   <div class="progress" ref="progress" :style='[{width:prowidth},{height:proheight}]' @click="setposition">
     <div class="inner-box" ref="innerbox" :style='{width:innerwidth}'>
-      <div class="curcle" ></div>
+      <div class="curcle" v-show="isShow"></div>
     </div>
   </div>
 </template>
@@ -10,17 +10,25 @@
 export default {
   name:'Progress',
   props:{
+      // 进度条宽度
       prowidth:{
           type:String,
           default:'100px'
       },
+      // 进度条高度
       proheight:{
           type:String,
           default:'10px'
       },
+      // 滑块宽度
       innerwidth:{
         type:String,
         default:'50%'
+      },
+      // 是否显示圆点
+      isShow:{
+        type:Boolean,
+        default:true
       }
   },
   methods:{

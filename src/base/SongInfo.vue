@@ -1,12 +1,12 @@
 <template>
   <div class="songinfo">
-    <div class="img-wrap" v-if="isShow">
+    <div class="img-wrap" >
       <img
         :src="imgurl"
         alt=""
       />
     </div>
-    <div class="info" v-if="isShow">
+    <div class="info" >
       <p class="title">
         <span class="songname">{{name}} - </span>
         <span class="art">{{art}}</span>
@@ -22,7 +22,7 @@
 <script>
 export default {
   name: "SongInfo",
-  props:['imgurl','name','art','duration','nowtime','isShow']
+  props:['imgurl','name','art','duration','nowtime']
 };
 </script>
 

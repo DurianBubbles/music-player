@@ -19,12 +19,13 @@ export default {
       // 滚动条高度
       proheight:'3px',
       // 滑块宽度
-      innerwidth:'50%'
+      innerwidth:'100%'
     }
   },
   methods:{
     setposition(position){
       this.innerwidth = position * 100 + '%'
+      this.$emit('position',position)
     }
   }
 }
