@@ -22,7 +22,6 @@ export default {
           //拿到所有歌曲信息 
           this.songs = res.data.result
           this.idlist.push(res.data.result.map(item => item.id))
-          console.log(this.idlist)
       })
   },
   data(){
