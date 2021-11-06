@@ -1,5 +1,5 @@
 <template>
-  <div class="songlist">
+  <div class="songlist" v-show="getIsShowSonglist">
     <div class="nav">
         <p>播放列表</p>
         <p>历史记录</p>
@@ -12,19 +12,29 @@
         </div>
     </div>
     <div class="list-wrap">
-     <Songlistcard :title="item.songname" :art="item.art" :duration="item.duration" v-for="(item,index) in getPlayList" :key="index"/>
+     <Songlistcard @click.native="changsong(index,item.id)" :index="index" :title="item.songname" :art="item.art" :duration="item.duration" v-for="(item,index) in getPlayList" :key="index"/>
     </div>
   </div>
 </template>
 
 <script>
 import Songlistcard from 'base/Songlistcard.vue'
-import {mapGetters} from 'vuex'
+import {mapGetters,mapMutations,mapActions} from 'vuex' 
 export default {
   name:'Songlist',
   components:{Songlistcard},
   computed:{
-      ...mapGetters(['getPlayList'])
+      ...mapGetters(['getPlayList','getIsShowSonglist'])
+  },
+  methods:{
+      changsong(index,id){
+        //   1.改变currentIndex
+        this.setcurrentIndex(index)
+        // 2.赋值url
+        this.getSongUrl(id)
+      },
+      ...mapMutations(['setcurrentIndex']),
+      ...mapActions(['getSongUrl'])
   }
 }
 </script>
@@ -86,5 +96,18 @@ export default {
       height: 30px;
       line-height: 30px;
       font-size: 12px;
+  }
+
+  .list-wrap{
+      overflow-y: scroll;
+  }
+
+  ::-webkit-scrollbar{
+    background: #ededed;
+    width:5px;
+  } 
+
+  ::-webkit-scrollbar-thumb{
+    background: #D0D0D0;
   }
 </style>

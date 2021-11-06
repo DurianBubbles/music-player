@@ -16,8 +16,8 @@ const store = new Vuex.Store({
     nowtime: 0,
     // 歌曲时长
     duration: 0,
-    // 是否显示歌曲信息
-    isShowInfo: false,
+    // 是否显示歌曲列表
+    isShowSonglist: false,
     // 音量
     volume: 1,
     // 播放列表
@@ -43,21 +43,33 @@ const store = new Vuex.Store({
     },
     setVolume(state, volume) {
       state.volume = volume
+    },
+    setIsShowSonglist(state){
+      state.isShowSonglist = !state.isShowSonglist
+    },
+    clearplaylist(state){
+      state.playlist= []
     }
   },
   actions: {
     // 给音乐url赋值
     setList(context, info) {
+      // 清空列表
+      context.commit('clearplaylist')
       // 设置歌曲信息
       getMusicInfo(info.idlist.join(',')).then(res => {
         res.data.songs.map(item => context.commit('setInfo', new SongInfo(item)))
         // 设置歌曲url
-        getMusicUrl(context.state.playlist[info.index].id).then(res => {
-          context.commit('setUrl', res.data.data[0].url)
-        })
+        context.dispatch('getSongUrl',context.state.playlist[info.index].id)
       })
       // 设置当前播放歌曲index
       context.commit('setcurrentIndex', info.index)
+    },
+    // 获取url
+    getSongUrl(context, id){
+      getMusicUrl(id).then(res => {
+        context.commit('setUrl', res.data.data[0].url)
+      })
     }
   },
   getters: {
@@ -79,6 +91,12 @@ const store = new Vuex.Store({
     },
     isShow(state) {
       return state.playlist.length == 0 ? false : true
+    },
+    getIsShowSonglist(state){
+      return state.isShowSonglist
+    },
+    getCurrentIndex(state){
+      return state.currentIndex
     }
   }
 })

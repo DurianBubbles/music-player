@@ -1,15 +1,22 @@
 <template>
   <div class="card">
-    <p class="title">{{title}}</p>
+    <p class="title" :class="{active:isActive}">{{title}}</p>
     <p class="art">{{art}}</p>
     <p class="time">{{duration}}</p>
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
 export default {
   name:'Songlistcard',
-  props:['title','art','duration']
+  props:['title','art','duration','index'],
+  computed:{
+    isActive(){
+      return this.index == this.getCurrentIndex ? true : false
+    },
+    ...mapGetters(['getCurrentIndex'])
+  }
 }
 </script>
 
@@ -19,6 +26,10 @@ export default {
       height: 30px;
       display: flex;
       padding-left: 15px;
+  }
+
+  .card:hover{
+    background: #e2e2e2;
   }
 
   .card p{
@@ -45,5 +56,9 @@ export default {
 
   .time{
       width: 100px;
+  }
+
+  .active{
+    color: #d33a31;
   }
 </style>

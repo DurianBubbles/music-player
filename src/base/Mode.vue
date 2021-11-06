@@ -1,7 +1,7 @@
 <template>
   <div class="mode">
     <span class="playtmode"></span>
-    <span class="list"></span>
+    <span class="list" @click="setIsShowSonglist"></span>
     <span class="sound"></span>
     <Progress :prowidth='prowidth' :proheight='proheight' :innerwidth='innerwidth' @position='setposition'/>
   </div>
@@ -9,6 +9,7 @@
 
 <script>
 import Progress from './Progress.vue'
+import {mapMutations} from 'vuex'
 export default {
   name:'Mode',
   components:{Progress},
@@ -26,7 +27,8 @@ export default {
     setposition(position){
       this.innerwidth = position * 100 + '%'
       this.$emit('position',position)
-    }
+    },
+    ...mapMutations(['setIsShowSonglist'])
   }
 }
 </script>
@@ -46,14 +48,17 @@ export default {
 
   .playtmode{
       background: url(~assets/img/miniplayer/sort.svg) no-repeat center/cover;
+      cursor: pointer;
   }
 
   .list{
       background: url(~assets/img/miniplayer/list.svg) no-repeat center/cover;
+      cursor: pointer;
   }
 
   .mode span.sound{
       margin-right: 10px;
       background: url(~assets/img/miniplayer/sound.svg) no-repeat center/cover;
+      cursor: pointer;
   }
 </style>
