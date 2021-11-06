@@ -8,6 +8,7 @@
         :name="item.name"
         v-for="(item, index) in list"
         :key="index"
+        @click.native="showdetail"
       ></PlayListCard>
     </div>
   </div>
@@ -30,6 +31,11 @@ export default {
     getPersonalized(10).then((res) => {
       this.list = res.data.result;
     });
+  },
+  methods:{
+    showdetail(){
+      this.$router.push({path:'detail'})
+    }
   }
 };
 </script>

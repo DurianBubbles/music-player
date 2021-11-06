@@ -13,10 +13,10 @@ export default {
   data(){
     return{
       menuitem:[
-        {imgstyle:'discover',tittle:'发现音乐',path:'/discovery'},
-        {imgstyle:'playlists',tittle:'推荐歌单',path:'/playlists'},
-        {imgstyle:'songs',tittle:'最新音乐',path:'/songs'},
-        {imgstyle:'mvs',tittle:'最新mv',path:'/mvs'}
+        {imgstyle:'discover',tittle:'发现音乐',path:'/layout/discovery'},
+        {imgstyle:'playlists',tittle:'推荐歌单',path:'/layout/playlists'},
+        {imgstyle:'songs',tittle:'最新音乐',path:'/layout/songs'},
+        {imgstyle:'mvs',tittle:'最新mv',path:'/layout/mvs'}
       ]
     }
   }
