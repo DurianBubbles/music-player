@@ -18,10 +18,10 @@ export const getMusicUrl = id => request({
 })
 
 // 根据歌曲id，获取歌曲详情
-export const getMusicInfo = id => request({
+export const getMusicInfo = ids => request({
     url:'/song/detail',
     params:{
-        ids:id
+        ids:ids
     }
 })
 

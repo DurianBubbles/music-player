@@ -1,10 +1,17 @@
 <template>
   <div class="miniplayer">
-    <SongInfo v-if="isShow" :nowtime="getNowTime | formatCurrent" :imgurl="getMiniCardInfo.songimgurl" :name="getMiniCardInfo.songname" :art="getMiniCardInfo.art" :duration="getMiniCardInfo.duration | transform"/>
+    <SongInfo
+      v-if="isShow"
+      :nowtime="getNowTime | formatCurrent"
+      :imgurl="getMiniCardInfo.songimgurl"
+      :name="getMiniCardInfo.songname"
+      :art="getMiniCardInfo.art"
+      :duration="getMiniCardInfo.duration | transform"
+    />
     <Controller />
-    <Mode @position="setVolume"/>
-    <MusicProgress :current='progressIndex' @position="setcurrent"/>
-    <audio ref="audio" autoplay  @timeupdate='refreshTime' :src="getUrl"></audio>
+    <Mode @position="setVolume" />
+    <MusicProgress :current="progressIndex" @position="setcurrent" />
+    <audio ref="audio" autoplay @timeupdate="refreshTime" :src="getUrl"></audio>
   </div>
 </template>
 
@@ -12,43 +19,50 @@
 import SongInfo from "base/SongInfo.vue";
 import Controller from "base/Controller.vue";
 import Mode from "base/Mode.vue";
-import MusicProgress from './childComps/MusicProgress.vue'
+import MusicProgress from "./childComps/MusicProgress.vue";
 
-import { mapGetters,mapMutations } from "vuex";
-import {formatDuration,formatCurrentTime} from '@/utils/index.js'
+import { mapGetters, mapMutations } from "vuex";
+import { formatDuration, formatCurrentTime } from "@/utils/index.js";
 export default {
   name: "Miniplayer",
-  components: { SongInfo, Controller,MusicProgress,Mode },
-  data(){
-    return{
+  components: { SongInfo, Controller, MusicProgress, Mode },
+  data() {
+    return {
       // 播放进度条位置
-      progressIndex:'0%'
-    }
+      progressIndex: "0%",
+    };
   },
   computed: {
-    ...mapGetters(["getMiniCardInfo",'getProgressPosition','getNowTime','getUrl','isShow'])
+    ...mapGetters([
+      "getMiniCardInfo",
+      "getProgressPosition",
+      "getNowTime",
+      "getUrl",
+      "isShow",
+    ]),
   },
-  methods:{
-    refreshTime(){
-      this.setNowTime(this.$refs.audio.currentTime)
-      this.progressIndex = this.getProgressPosition
+  methods: {
+    refreshTime() {
+      this.setNowTime(this.$refs.audio.currentTime);
+      this.progressIndex = this.getProgressPosition;
     },
-    setcurrent(pos){
-      this.$refs.audio.currentTime = pos*(this.getMiniCardInfo.duration/1000)
+    setcurrent(pos) {
+      this.$refs.audio.currentTime =
+        pos * (this.getMiniCardInfo.duration / 1000);
     },
-    setVolume(pos){
-      this.$refs.audio.volume = pos
+    setVolume(pos) {
+      this.$refs.audio.volume = pos;
     },
-    ...mapMutations(['setNowTime'])
+    ...mapMutations(["setNowTime"]),
   },
-  filters:{
-    transform(time){
-      return formatDuration(time)
+  filters: {
+    transform(time) {
+      return formatDuration(time);
     },
-    formatCurrent(time){
-      return formatCurrentTime(time)
-    }
-  }
+    formatCurrent(time) {
+      return formatCurrentTime(time);
+    },
+  },
 };
 </script>
 

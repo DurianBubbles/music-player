@@ -20,7 +20,7 @@ const routes = [
   },
   {
     path: '/layout',
-    components: Layout,
+    component: Layout,
     children: [
       {
         path: 'discovery',
@@ -39,8 +39,8 @@ const routes = [
         component: Mvs
       },
       {
-        path: 'detail',
-        components: Detail
+        path: 'detail/:id',
+        component: Detail
       }
     ]
   },

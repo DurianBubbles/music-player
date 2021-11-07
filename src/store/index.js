@@ -74,8 +74,11 @@ const store = new Vuex.Store({
   },
   getters: {
     getProgressPosition(state) {
-      const bottom = state.playlist[state.currentIndex].duration / 1000
-      return ((state.nowtime / bottom) * 100).toFixed(2) + '%'
+      if(state.playlist[state.currentIndex] != undefined){
+        const bottom = state.playlist[state.currentIndex].duration / 1000
+        return ((state.nowtime / bottom) * 100).toFixed(2) + '%'
+      }
+      
     },
     getPlayList(state) {
       return state.playlist

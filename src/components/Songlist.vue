@@ -99,6 +99,7 @@ export default {
   }
 
   .list-wrap{
+    height: calc(100% - 80px);
       overflow-y: scroll;
   }
 

@@ -8,7 +8,7 @@
         :name="item.name"
         v-for="(item, index) in list"
         :key="index"
-        @click.native="showdetail"
+        @click.native="showdetail(item.id)"
       ></PlayListCard>
     </div>
   </div>
@@ -33,8 +33,8 @@ export default {
     });
   },
   methods:{
-    showdetail(){
-      this.$router.push({path:'detail'})
+    showdetail(id){
+      this.$router.push({path:'/layout/detail/'+id})
     }
   }
 };

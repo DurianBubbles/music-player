@@ -1,6 +1,6 @@
 <template>
   <div class="songinfo">
-    <div class="img-wrap" >
+    <div class="img-wrap">
       <img
         :src="imgurl"
         alt=""

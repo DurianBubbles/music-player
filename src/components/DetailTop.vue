@@ -1,34 +1,36 @@
 <template>
   <div class="detailtop">
     <div class="img-wrap">
-        <img src="https://p1.music.126.net/J9CzrcKvr_MRamnIlClgyg==/109951165891721002.jpg?param=400y400" alt="">
+        <img v-lazy="info.imgUrl" alt="">
     </div>
     <div class="content">
-        <p class="title">得饶人处且饶舌</p>
+        <p class="title">{{info.title}}</p>
         <div class="art">
-            <img src="https://p1.music.126.net/qjIzZM3J-K6ZhPCXmohrcg==/109951166095223324.jpg" alt="">
-            <p>性言</p>
-            <p>2021-01-01 创建</p>
+            <img v-lazy="info.collecturl" alt="">
+            <p class="name">{{info.collectname}}</p>
+            <p class="time">{{info.createtime}} 创建</p>
         </div>
         <div class="playBtn">
             <i></i>
             <p>播放全部</p>
         </div>
-        <p>标签：<span>说唱/流行</span></p>
-        <p>简介：<span>说唱好才能舌吻好</span></p>
+        <p class="tag">标签：<span>{{info.tag}}</span></p>
+        <p class="brief">简介：<span>{{info.biref}}</span></p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name:'DetailTop'
+  name:'DetailTop',
+  props:['info']
 }
 </script>
 
 <style scoped>
   .detailtop{
-      width: 100%;
+      width: 90%;
+      margin: 0 auto;
       display: flex;
   }
 
@@ -47,5 +49,66 @@ export default {
       flex: 1;
       display: flex;
       flex-direction: column;
+      text-align: left;
+  }
+
+  .content .title{
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .art{
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .art img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 5px;
+  }
+
+  .art .name{
+    color: #4a4a4a;
+    font-size: 14px;
+  }
+
+  .art .time{
+    color: #4a4a4a;
+    font-size: 12px;
+  }
+
+  .playBtn{
+    width: 110px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(90deg,#fa5143,#f44d41,#d53b32);
+    color: #fbdfdd;
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  .playBtn>i{
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: url(~assets/img/detail/playbtn.svg) no-repeat center/cover;
+    transform: translateY(1px);
+    margin-right: 3px;
+  }
+
+  .tag{
+    font-size: 13px;
+    color: #4a4a4a;
+    margin-bottom: 10px;
+  }
+
+  .brief{
+    font-size: 13px;
+    color: #4a4a4a;
   }
 </style>

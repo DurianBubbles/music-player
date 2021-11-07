@@ -23,7 +23,7 @@ export default {
       // 滑块宽度
       innerwidth:{
         type:String,
-        default:'50%'
+        default:'0%'
       },
       // 是否显示圆点
       isShow:{
