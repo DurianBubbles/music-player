@@ -78,6 +78,6 @@ export default {
   align-items: center;
   padding: 0 20px;
   justify-content: space-between;
-  z-index: 12;
+  z-index: 20;
 }
 </style>
