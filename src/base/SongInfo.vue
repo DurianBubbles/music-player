@@ -1,6 +1,6 @@
 <template>
   <div class="songinfo">
-    <div class="img-wrap">
+    <div class="img-wrap" @click="isShowLyric">
       <img
         :src="imgurl"
         alt=""
@@ -20,9 +20,16 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
 export default {
   name: "SongInfo",
-  props:['imgurl','name','art','duration','nowtime']
+  props:['imgurl','name','art','duration','nowtime'],
+  methods:{
+    isShowLyric(){
+      this.setisShowLyric()
+    },
+    ...mapMutations(['setisShowLyric'])
+  }
 };
 </script>
 

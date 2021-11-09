@@ -32,9 +32,11 @@ export default {
         this.setcurrentIndex(index)
         // 2.赋值url
         this.getSongUrl(id)
+        // 3.更新评论
+        this.getAllComment({id:id,offset:0})
       },
       ...mapMutations(['setcurrentIndex']),
-      ...mapActions(['getSongUrl'])
+      ...mapActions(['getSongUrl','getAllComment'])
   }
 }
 </script>
@@ -47,7 +49,7 @@ export default {
       bottom: 60px;
       width: 400px;
       background: #fff;
-      z-index: 11;
+      z-index: 20;
   }
 
   .nav{

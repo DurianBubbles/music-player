@@ -1,18 +1,19 @@
 <template>
   <div class="card">
       <div class="img-wrap">
-          <img src="https://p4.music.126.net/TQjUaPU-HXViM9h-v_OBGQ==/109951166343505673.jpg?param=80y80" alt="">
+          <img :src="imgurl" alt="">
       </div>
       <div class="txt-wrap">
-          <p class="cont">不是噶系：<span>我们一定会一起去看告五人~</span></p>
-          <p class="time">2021-11-08 11:28:11</p>
+          <p class="cont">{{name}}：<span>{{content}}</span></p>
+          <p class="time">{{time}}</p>
       </div>
   </div>
 </template>
 
 <script>
 export default {
-  name:'CommentCard'
+  name:'CommentCard',
+  props:['imgurl','name','content','time']
 }
 </script>
 

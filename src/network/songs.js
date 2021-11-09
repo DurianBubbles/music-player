@@ -25,6 +25,16 @@ export const getMusicInfo = ids => request({
     }
 })
 
+// 根据歌曲id，获取评论
+export const getComment = (id,limit=20,offset=0) => request({
+    url:'/comment/music',
+    params:{
+        id:id,
+        limit:limit,
+        offset:offset
+    }
+})
+
 // 封装miniplayer所需数据
 export class SongInfo{
     constructor(info){
@@ -33,5 +43,15 @@ export class SongInfo{
         this.duration = info.dt
         this.songimgurl = info.al.picUrl
         this.id = info.id
+    }
+}
+
+// 封装评论所需内容
+export class HotComment{
+    constructor(i){
+        this.username = i.user.nickname
+        this.userurl = i.user.avatarUrl
+        this.content = i.content
+        this.time = i.time
     }
 }

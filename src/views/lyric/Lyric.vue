@@ -1,15 +1,15 @@
 <template>
-  <div class="content">
+  <div class="content" :class="{choose:getisShowLyric}" v-if="isShow">
     <div class="wrap">
       <div class="song">
         <div class="left">
           <img class="pointer" src="~assets/img/lyric/pointer.png" alt="" />
           <img class="arm" src="~assets/img/lyric/arm.png" alt="" />
           <div class="img-outer-border">
-            <div class="img-outer">
+            <div class="img-outer"> 
               <div class="img-wrap">
                 <img
-                  src="https://p2.music.126.net/UWWjHklcLH_R5Q6soiFyAA==/109951165020226069.jpg?param=400y400"
+                  :src="getMiniCardInfo.songimgurl"
                   alt=""
                 />
               </div>
@@ -17,28 +17,54 @@
           </div>
         </div>
         <div class="right">
-          <p class="songname">Crazy Love</p>
-          <p class="art">歌手：<span>Bali Bandits</span></p>
+          <p class="songname">{{getMiniCardInfo.songname}}</p>
+          <p class="art" @click="position">歌手：<span>{{getMiniCardInfo.art}}</span></p>
+          <Scroll ref="lyricsc" class="lyric-wrap" :mouseWheel="true">
+            <div class="lryicbox" v-for="(item,index) in lyricrelease" :key="index">
+              {{ item.content }}
+            </div>
+          </Scroll>
         </div>
       </div>
       <div class="bottom"></div>
     </div>
     <div class="bottom">
-        <div class="left">
-            <div class="block">
-                <p>精彩评论</p>
-                <CommentCard v-for="item in 10" :key="item"/>
-            </div>
+      <div class="left">
+        <div class="block">
+          <p>精彩评论</p>
+          <CommentCard :imgurl='item.userurl' :name='item.username' :content='item.content' :time='item.time' v-for="(item,index) in getComment.hot" :key="index" />
         </div>
+        <div class="block">
+          <p>最新评论</p>
+          <CommentCard :imgurl='item.userurl' :name='item.username' :content='item.content' :time='item.time' v-for="(item,index) in getComment.new" :key="index" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import CommentCard from './childComps/CommentCard.vue'
+import CommentCard from "./childComps/CommentCard.vue";
+import Scroll from "base/Scroll.vue";
+
+import {parseLyric} from "@/utils/lrcparse.js";
+import {mapGetters} from 'vuex'
 export default {
   name: "Lyric",
-  components:{CommentCard}
+  components: { CommentCard, Scroll },
+  data() {
+    return {
+      lyricrelease:[]
+    };
+  },
+  methods: {
+    position() {
+      this.lyricrelease = parseLyric("[00:04.050] [00:12.570]难以忘记初次见你 [00:16.860]一双迷人的眼睛 [00:21.460]在我脑海里 [00:23.960]你的身影 挥散不去 [00:30.160]握你的双手感觉你的温柔 [00:34.940]真的有点透不过气 [00:39.680]你的天真 我想珍惜 [00:43.880]看到你受委屈 我会伤心 [00:48.180]喔 [00:50.340]只怕我自己会爱上你 [00:55.070]不敢让自己靠的太近 [00:59.550]怕我没什么能够给你 [01:04.030]爱你也需要很大的勇气 [01:08.190]只怕我自己会爱上你 [01:12.910]也许有天会情不自禁 [01:17.380]想念只让自己苦了自己 [01:21.840]爱上你是我情非得已 [01:28.810]难以忘记初次见你 [01:33.170]一双迷人的眼睛 [01:37.700]在我脑海里 你的身影 挥散不去 [01:46.360]握你的双手感觉你的温柔 [01:51.120]真的有点透不过气 [01:55.910]你的天真 我想珍惜 [02:00.150]看到你受委屈 我会伤心 [02:04.490]喔 [02:06.540]只怕我自己会爱上你 [02:11.240]不敢让自己靠的太近 [02:15.750]怕我没什么能够给你 [02:20.200]爱你也需要很大的勇气 [02:24.570]只怕我自己会爱上你 [02:29.230]也许有天会情不自禁 [02:33.680]想念只让自己苦了自己 [02:38.140]爱上你是我情非得已 [03:04.060]什么原因 耶 [03:07.730]我竟然又会遇见你 [03:13.020]我真的真的不愿意 [03:16.630]就这样陷入爱的陷阱 [03:20.700]喔 [03:22.910]只怕我自己会爱上你 [03:27.570]不敢让自己靠的太近 [03:32.040]怕我没什么能够给你 [03:36.560]爱你也需要很大的勇气 [03:40.740]只怕我自己会爱上你 [03:45.460]也许有天会情不自禁 [03:49.990]想念只让自己苦了自己 [03:54.510]爱上你是我情非得已 [03:58.970]爱上你是我情非得已 [04:03.000] ");
+    },
+  },
+  computed:{
+    ...mapGetters(['getMiniCardInfo','getisShowLyric','getComment','isShow'])
+  }
 };
 </script>
 
@@ -52,7 +78,12 @@ export default {
   background: #fff;
   z-index: 15;
   overflow-y: scroll;
-  /* transform: translateY(105%); */
+  transform: translateY(105%);
+  transition: all .5s;
+}
+
+.content.choose{
+  transform: translate(0);
 }
 
 .wrap {
@@ -127,48 +158,68 @@ export default {
   height: 100%;
 }
 
-.song .right{
-    flex: 1;
-    padding-top: 50px;
+.song .right {
+  flex: 1;
+  padding-top: 50px;
 }
 
-.songname{
-    font-size:22px;
-    color: #333333;
-    text-align: left;
-    margin-bottom: 16px;
+.songname {
+  font-size: 22px;
+  color: #333333;
+  text-align: left;
+  margin-bottom: 16px;
 }
 
-.art{
-    text-align: left;
-    font-size: 12px;
-    color: #4a4a4a;
+.art {
+  text-align: left;
+  font-size: 12px;
+  color: #4a4a4a;
+  margin-bottom: 20px;
 }
 
-.art>span{
-    color: #517eaf;
+.art > span {
+  color: #517eaf;
 }
 
-.bottom{
-    width: 870px;
+.bottom {
+  width: 870px;
   margin: 0 auto;
 }
 
-.block{
-    text-align: left;
+.block {
+  text-align: left;
+  margin-bottom: 20px;
 }
 
-.block>p{
-    margin-bottom: 20px;
-    font-weight: 700;
+.block > p {
+  margin-bottom: 20px;
+  font-weight: 700;
 }
 
-::-webkit-scrollbar{
-    background: #ededed;
-    width:5px;
-  } 
+::-webkit-scrollbar {
+  background: #ededed;
+  width: 5px;
+}
 
-  ::-webkit-scrollbar-thumb{
-    background: #D0D0D0;
-  }
+::-webkit-scrollbar-thumb {
+  background: #d0d0d0;
+}
+
+.lyric-wrap {
+  height: 350px;
+  width: 380px;
+  overflow: hidden;
+}
+
+.lryicbox{
+  width: 100%;
+  height: 35px;
+  line-height: 35px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.active{
+  font-weight: 700;
+}
 </style>

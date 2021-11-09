@@ -2,10 +2,10 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // getMusicUrl,
-import { getMusicUrl, getMusicInfo, SongInfo } from 'network/songs.js'
+import { getMusicUrl, getMusicInfo, SongInfo,getComment,HotComment } from 'network/songs.js'
 
 //安装插件
-Vue.use(Vuex)
+Vue.use(Vuex) 
 
 //创建对象
 const store = new Vuex.Store({
@@ -23,7 +23,11 @@ const store = new Vuex.Store({
     // 播放列表
     playlist: [],
     // 当前播放歌曲index
-    currentIndex: 0
+    currentIndex: 0,
+    // 是否显示歌词
+    isShowLyric:false,
+    // 评论信息
+    comment:{hot:[],new:[]}
   },
   mutations: {
     //设置音乐url   
@@ -49,6 +53,18 @@ const store = new Vuex.Store({
     },
     clearplaylist(state){
       state.playlist= []
+    },
+    setisShowLyric(state){
+      state.isShowLyric = !state.isShowLyric
+    },
+    setHotComment(state,info){
+      state.comment.hot.push(info)
+    },
+    setNewComment(state,info){
+      state.comment.new.push(info)
+    },
+    clearComment(state){
+      state.comment = {hot:[],new:[]}
     }
   },
   actions: {
@@ -61,6 +77,8 @@ const store = new Vuex.Store({
         res.data.songs.map(item => context.commit('setInfo', new SongInfo(item)))
         // 设置歌曲url
         context.dispatch('getSongUrl',context.state.playlist[info.index].id)
+        // 设置评论
+        context.dispatch('getAllComment',{id:context.state.playlist[info.index].id,offset:0})
       })
       // 设置当前播放歌曲index
       context.commit('setcurrentIndex', info.index)
@@ -69,6 +87,16 @@ const store = new Vuex.Store({
     getSongUrl(context, id){
       getMusicUrl(id).then(res => {
         context.commit('setUrl', res.data.data[0].url)
+      })
+    },
+    // 获取评论
+    getAllComment(context,params){
+      context.commit('clearComment')
+      getComment(params.id).then(res => {
+        if(params.offset == 0){
+          res.data.hotComments.map(item => context.commit('setHotComment',new HotComment(item)))
+        }
+        res.data.comments.map(item => context.commit('setNewComment',new HotComment(item)))
       })
     }
   },
@@ -100,6 +128,12 @@ const store = new Vuex.Store({
     },
     getCurrentIndex(state){
       return state.currentIndex
+    },
+    getisShowLyric(state){
+      return state.isShowLyric
+    },
+    getComment(state){
+      return state.comment
     }
   }
 })
