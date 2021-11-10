@@ -34,9 +34,13 @@ export default {
         this.getSongUrl(id)
         // 3.更新评论
         this.getAllComment({id:id,offset:0})
+        // 4.更新歌词
+        this.getlyric(id)
+        // 5.更新歌词滚动index
+        this.setlyricIndex(0)
       },
-      ...mapMutations(['setcurrentIndex']),
-      ...mapActions(['getSongUrl','getAllComment'])
+      ...mapMutations(['setcurrentIndex','setlyricIndex']),
+      ...mapActions(['getSongUrl','getAllComment','getlyric'])
   }
 }
 </script>

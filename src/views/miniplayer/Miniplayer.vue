@@ -39,12 +39,18 @@ export default {
       "getNowTime",
       "getUrl",
       "isShow",
+      "getLyric",
+      "getlyricIndex"
     ]),
   },
   methods: {
     refreshTime() {
-      this.setNowTime(this.$refs.audio.currentTime);
+      let currentTime = this.$refs.audio.currentTime
+      this.setNowTime(currentTime);
       this.progressIndex = this.getProgressPosition;
+      if(currentTime.toFixed(0) == this.getLyric[this.getlyricIndex].time){
+        this.setlyricIndex(this.getlyricIndex+1)
+      }
     },
     setcurrent(pos) {
       this.$refs.audio.currentTime =
@@ -53,7 +59,7 @@ export default {
     setVolume(pos) {
       this.$refs.audio.volume = pos;
     },
-    ...mapMutations(["setNowTime"]),
+    ...mapMutations(["setNowTime",'setlyricIndex']),
   },
   filters: {
     transform(time) {

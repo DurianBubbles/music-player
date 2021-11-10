@@ -35,6 +35,14 @@ export const getComment = (id,limit=20,offset=0) => request({
     }
 })
 
+// 根据歌曲id，获取歌词
+export const getlyric = id => request({
+    url:'/lyric',
+    params:{
+        id:id
+    }
+})
+
 // 封装miniplayer所需数据
 export class SongInfo{
     constructor(info){

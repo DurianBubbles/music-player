@@ -2,7 +2,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // getMusicUrl,
-import { getMusicUrl, getMusicInfo, SongInfo,getComment,HotComment } from 'network/songs.js'
+import { getMusicUrl, getMusicInfo, SongInfo,getComment,HotComment,getlyric } from 'network/songs.js'
+import {parseLyric} from "@/utils/lrcparse.js";
 
 //安装插件
 Vue.use(Vuex) 
@@ -27,7 +28,13 @@ const store = new Vuex.Store({
     // 是否显示歌词
     isShowLyric:false,
     // 评论信息
-    comment:{hot:[],new:[]}
+    comment:{hot:[],new:[]},
+    // 歌词信息
+    lyric:[],
+    // 歌词滚动标识
+    lyricIndex:0,
+    // 歌词滚动距离
+    position:0
   },
   mutations: {
     //设置音乐url   
@@ -65,6 +72,12 @@ const store = new Vuex.Store({
     },
     clearComment(state){
       state.comment = {hot:[],new:[]}
+    },
+    setLyric(state,info){
+      state.lyric = info
+    },
+    setlyricIndex(state,index){
+      state.lyricIndex = index
     }
   },
   actions: {
@@ -79,6 +92,8 @@ const store = new Vuex.Store({
         context.dispatch('getSongUrl',context.state.playlist[info.index].id)
         // 设置评论
         context.dispatch('getAllComment',{id:context.state.playlist[info.index].id,offset:0})
+        // 设置歌词
+        context.dispatch('getlyric',context.state.playlist[info.index].id)
       })
       // 设置当前播放歌曲index
       context.commit('setcurrentIndex', info.index)
@@ -97,6 +112,12 @@ const store = new Vuex.Store({
           res.data.hotComments.map(item => context.commit('setHotComment',new HotComment(item)))
         }
         res.data.comments.map(item => context.commit('setNewComment',new HotComment(item)))
+      })
+    },
+    // 获取歌词
+    getlyric(context,id){
+      getlyric(id).then(res => {
+        context.commit('setLyric',parseLyric(res.data.lrc.lyric))
       })
     }
   },
@@ -134,6 +155,19 @@ const store = new Vuex.Store({
     },
     getComment(state){
       return state.comment
+    },
+    getLyric(state){
+      return state.lyric
+    },
+    getlyricIndex(state){
+      return state.lyricIndex
+    },
+    getposition(state){
+      if(state.lyricIndex < 5){
+        return 0
+      }else{
+        return (state.lyricIndex-4) * 35
+      }
     }
   }
 })
