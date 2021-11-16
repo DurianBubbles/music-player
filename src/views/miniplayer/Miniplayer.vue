@@ -1,14 +1,15 @@
 <template>
   <div class="miniplayer">
     <SongInfo
-      v-if="isShow"
+      v-if="isShow" 
       :nowtime="getNowTime | formatCurrent"
       :imgurl="getMiniCardInfo.songimgurl"
       :name="getMiniCardInfo.songname"
       :art="getMiniCardInfo.art"
       :duration="getMiniCardInfo.duration | transform"
     />
-    <Controller />
+    <div class="noneinfo" v-else></div>
+    <Controller @isPlay="isplay"/>
     <Mode @position="setVolume" />
     <MusicProgress :current="progressIndex" @position="setcurrent" />
     <audio ref="audio" autoplay @timeupdate="refreshTime" :src="getUrl"></audio>
@@ -29,7 +30,7 @@ export default {
   data() {
     return {
       // 播放进度条位置
-      progressIndex: "0%",
+      progressIndex: "0%"
     };
   },
   computed: {
@@ -59,7 +60,17 @@ export default {
     setVolume(pos) {
       this.$refs.audio.volume = pos;
     },
-    ...mapMutations(["setNowTime",'setlyricIndex']),
+    isplay(){
+      const audio = this.$refs.audio
+      if(audio.paused){
+        audio.play()
+        this.setisPlay(true)
+      }else{
+        audio.pause()
+        this.setisPlay(false)
+      }
+    },
+    ...mapMutations(["setNowTime",'setlyricIndex','setisPlay']),
   },
   filters: {
     transform(time) {
@@ -85,5 +96,11 @@ export default {
   padding: 0 20px;
   justify-content: space-between;
   z-index: 20;
+}
+
+.noneinfo{
+  width: 100px;
+  height: 55px;
+  background: #fff;
 }
 </style>

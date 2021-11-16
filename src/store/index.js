@@ -34,7 +34,9 @@ const store = new Vuex.Store({
     // 歌词滚动标识
     lyricIndex:0,
     // 歌词滚动距离
-    position:0
+    position:0,
+    // 当前audio是否在播放
+    isPlay:false
   },
   mutations: {
     //设置音乐url   
@@ -78,6 +80,9 @@ const store = new Vuex.Store({
     },
     setlyricIndex(state,index){
       state.lyricIndex = index
+    },
+    setisPlay(state,type){
+      state.isPlay = type
     }
   },
   actions: {
@@ -97,6 +102,8 @@ const store = new Vuex.Store({
       })
       // 设置当前播放歌曲index
       context.commit('setcurrentIndex', info.index)
+      // 设置当前播放状态
+      context.commit('setisPlay',true)
     },
     // 获取url
     getSongUrl(context, id){
@@ -119,6 +126,26 @@ const store = new Vuex.Store({
       getlyric(id).then(res => {
         context.commit('setLyric',parseLyric(res.data.lrc.lyric))
       })
+    },
+    toPrev(context){
+      context.state.currentIndex == 0 ? context.commit('setcurrentIndex',context.state.playlist.length-1) : context.commit('setcurrentIndex',context.state.currentIndex -= 1)
+      context.dispatch('changeScrInfo',{index:context.state.currentIndex,id:context.state.playlist[context.state.currentIndex].id})
+    },
+    toNext(context){
+      context.state.currentIndex == context.state.playlist.length-1 ? context.commit('setcurrentIndex',0) : context.commit('setcurrentIndex',context.state.currentIndex += 1)
+      context.dispatch('changeScrInfo',{index:context.state.currentIndex,id:context.state.playlist[context.state.currentIndex].id})
+    },
+    changeScrInfo(context,params){
+      //   1.改变currentIndex
+      context.commit('setcurrentIndex',params.index)
+      // 2.赋值url
+      context.dispatch('getSongUrl',params.id)
+      // 3.更新评论
+      context.dispatch('getAllComment',{id:params.id,offset:0})
+      // 4.更新歌词
+      context.dispatch('getlyric',params.id)
+      //5.更新歌词滚动index
+      context.commit('setlyricIndex',0)
     }
   },
   getters: {
@@ -168,6 +195,9 @@ const store = new Vuex.Store({
       }else{
         return (state.lyricIndex-4) * 35
       }
+    },
+    getisPlay(state){
+      return state.isPlay
     }
   }
 })

@@ -11,6 +11,7 @@ const Songs = () => import('views/songs/Songs.vue')
 const Mvs = () => import('views/mvs/Mvs.vue')
 const Detail = () => import('views/detail/Detail.vue')
 const Layout = () => import('views/layout/Layout.vue')
+const MvDetail = () => import('views/mvdetail/MvDetail.vue')
 
 
 const routes = [
@@ -44,6 +45,10 @@ const routes = [
       }
     ]
   },
+  {
+    path:'/mvdetail',
+    component:MvDetail
+  }
 
 ]
 

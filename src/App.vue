@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <LayoutHeader />
     <MiniPlayer />
     <Songlist />
     <Lyric />
@@ -11,9 +12,10 @@
 import MiniPlayer from 'views/miniplayer/Miniplayer.vue'
 import Songlist from 'components/Songlist.vue'
 import Lyric from 'views/lyric/Lyric.vue'
+import LayoutHeader from "components/LayoutHeader.vue";
 export default {
   name: 'App',
-  components:{MiniPlayer,Songlist,Lyric}
+  components:{MiniPlayer,Songlist,Lyric,LayoutHeader}
 }
 </script>
 

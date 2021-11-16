@@ -19,7 +19,7 @@
 
 <script>
 import Songlistcard from 'base/Songlistcard.vue'
-import {mapGetters,mapMutations,mapActions} from 'vuex' 
+import {mapGetters,mapActions} from 'vuex' 
 export default {
   name:'Songlist',
   components:{Songlistcard},
@@ -28,19 +28,9 @@ export default {
   },
   methods:{
       changsong(index,id){
-        //   1.改变currentIndex
-        this.setcurrentIndex(index)
-        // 2.赋值url
-        this.getSongUrl(id)
-        // 3.更新评论
-        this.getAllComment({id:id,offset:0})
-        // 4.更新歌词
-        this.getlyric(id)
-        // 5.更新歌词滚动index
-        this.setlyricIndex(0)
+        this.changeScrInfo({index,id})
       },
-      ...mapMutations(['setcurrentIndex','setlyricIndex']),
-      ...mapActions(['getSongUrl','getAllComment','getlyric'])
+      ...mapActions(['changeScrInfo'])
   }
 }
 </script>

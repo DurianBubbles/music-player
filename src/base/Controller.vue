@@ -1,16 +1,26 @@
 <template>
   <div class="controller">
-    <i class="icon-prev"></i>
-    <div class="play">
-        <i class="icon"></i>
+    <i class="icon-prev" @click="toPrev"></i>
+    <div class="play" @click="isPlay">
+        <i class="icon" :class="{active:getisPlay}"></i>
     </div>
-    <i class="icon-next"></i>
+    <i class="icon-next" @click="toNext"></i>
   </div>
 </template>
 
 <script>
+import {mapGetters,mapActions} from 'vuex'
 export default {
-  name:'Controller'
+  name:'Controller',
+  methods:{
+    isPlay(){
+      this.$emit('isPlay')
+    },
+    ...mapActions(['toPrev','toNext'])
+  },
+  computed:{
+    ...mapGetters(['getisPlay'])
+  }
 }
 </script>
 
@@ -31,6 +41,7 @@ export default {
       margin: 0 40px;
       background: #d33a31;
       border-radius: 50%;
+      cursor: pointer;
   }
 
   .play .icon{
@@ -43,12 +54,17 @@ export default {
       left: 50%;
       transform: translate(-50%,-50%);
   }
+
+  .play .icon.active{
+    background: url(~assets/img/miniplayer/pause.svg) no-repeat center/cover;
+  }
   
   .icon-prev{
       display: block;
       width: 25px;
       height: 25px;
       background: url(~assets/img/miniplayer/prev-icon.svg) no-repeat center/cover;
+      cursor: pointer;
   }
 
   .icon-next{
@@ -56,5 +72,6 @@ export default {
       width: 25px;
       height: 25px;
       background: url(~assets/img/miniplayer/next-icon.svg) no-repeat center/cover;
+      cursor: pointer;
   }
 </style>
