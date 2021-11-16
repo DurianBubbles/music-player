@@ -9,16 +9,24 @@
       :num="index"
       v-for="(item, index) in info"
       :key="index"
+      @click.native="playmusic(index)"
     />
   </div>
 </template>
 
 <script>
 import SongCard from "base/SongCard.vue";
+import {mapActions} from 'vuex'
 export default {
   name: "Songlist",
   components: { SongCard },
   props: ["info"],
+  methods:{
+    playmusic(index){
+      this.setList({idlist:this.info.map(item => item.id),index})
+    },
+    ...mapActions(['setList'])
+  }
 };
 </script>
 

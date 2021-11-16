@@ -1,6 +1,6 @@
 <template>
   <div class="detail">
-    <DetailTop :info='detailTopInfo'/>
+    <DetailTop :list='songList' :info='detailTopInfo'/>
     <Control />
     <List :list='songList'/>
   </div> 

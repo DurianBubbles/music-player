@@ -3,6 +3,7 @@
     <PlaylistCard v-for="(item,index) in playlists" :key="index" :url="item.coverImgUrl"
       :desc="item.playCount | formatDesc"
       :name="item.name"
+      @click.native="showdetail(item.id)"
     />
   </div>
 </template>
@@ -18,6 +19,11 @@ export default {
       default(){
         return []
       }
+    }
+  },
+  methods:{
+    showdetail(id){
+      this.$router.push({path:'/layout/detail/'+id})
     }
   },
   filters:{

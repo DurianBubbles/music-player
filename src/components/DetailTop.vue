@@ -10,20 +10,36 @@
             <p class="name">{{info.collectname}}</p>
             <p class="time">{{info.createtime}} 创建</p>
         </div>
-        <div class="playBtn">
+        <div class="playBtn" @click="playmusic(0)">
             <i></i>
             <p>播放全部</p>
         </div>
-        <p class="tag">标签：<span>{{info.tag}}</span></p>
+        <p class="tag">标签：<span>{{info.tag | addspace}}</span></p>
         <p class="brief">简介：<span>{{info.biref}}</span></p>
     </div>
   </div>
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
   name:'DetailTop',
-  props:['info']
+  props:['info','list'],
+  methods:{
+    playmusic(index){
+      this.setList({idlist:this.list.map(item => item.id),index})
+    },
+    ...mapActions(['setList'])
+  },
+  filters:{
+    addspace(i){
+      if(i == undefined ){
+        return
+      }else{
+        return i.join('/')
+      }
+    }
+  }
 }
 </script>
 
@@ -90,6 +106,7 @@ export default {
     color: #fbdfdd;
     font-size: 14px;
     margin-bottom: 24px;
+    cursor: pointer;
   }
 
   .playBtn>i{
