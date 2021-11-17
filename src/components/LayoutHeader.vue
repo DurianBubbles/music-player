@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-header">
+  <div class="layout-header" @click="setisShowSearch(false)">
       <div class="navicon">
           <i class="el-icon-s-home"></i>
           <i class="el-icon-minus"></i>
@@ -12,7 +12,7 @@
       <div class="search">
           <div class="search-box">
               <i class="el-icon-search"></i>
-              <input type="text" class="search-input" placeholder="搜索">
+              <input type="text" class="search-input" v-model="value" placeholder="搜索" @click.stop="setisShowSearch(true)" @keyup.enter="tosearch">
           </div>
           <i class="el-icon-magic-stick"></i>
       </div>
@@ -20,12 +20,23 @@
 </template>
 
 <script>
+import {mapMutations} from 'vuex'
 export default {
   name:'LayoutHeader',
   data(){
       return{
-          input:''
+          value:''
       }
+  },
+  methods:{
+      tosearch(){
+        if(this.value == ''){
+            return
+        }else{
+            this.$router.push({path:'/layout/search/'+this.value})
+        }
+      },
+      ...mapMutations(['setisShowSearch'])
   }
 }
 </script>

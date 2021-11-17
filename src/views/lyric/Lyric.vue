@@ -4,9 +4,9 @@
       <div class="song">
         <div class="left">
           <img class="pointer" src="~assets/img/lyric/pointer.png" alt="" />
-          <img class="arm" src="~assets/img/lyric/arm.png" alt="" />
+          <img class="arm" :class="{up:!getisPlay}" src="~assets/img/lyric/arm.png" alt="" />
           <div class="img-outer-border">
-            <div class="img-outer"> 
+            <div class="img-outer" :class="{stop:!getisPlay}"> 
               <div class="img-wrap">
                 <img
                   :src="getMiniCardInfo.songimgurl"
@@ -57,7 +57,7 @@ export default {
     }
   },
   computed:{
-    ...mapGetters(['getMiniCardInfo','getisShowLyric','getComment','isShow','getLyric','getlyricIndex','getposition'])
+    ...mapGetters(['getMiniCardInfo','getisShowLyric','getComment','isShow','getLyric','getlyricIndex','getposition','getisPlay'])
   },
   watch:{
     '$store.state.lyricIndex':function(){
@@ -121,8 +121,12 @@ export default {
   left: 48%;
   z-index: 14;
   transform: rotate(5deg);
-  /* transform: rotate(-30deg); */
   transform-origin: 0 0;
+  transition: all .5s;
+}
+
+.arm.up{
+  transform: rotate(-30deg);
 }
 
 .img-outer-border {
@@ -143,6 +147,11 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: rotate 20s linear infinite;
+}
+
+.img-outer.stop{
+  animation-play-state: paused;
 }
 
 .img-wrap {
@@ -220,5 +229,15 @@ export default {
 
 .active{
   font-weight: 700;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

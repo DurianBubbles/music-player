@@ -36,7 +36,9 @@ const store = new Vuex.Store({
     // 歌词滚动距离
     position:0,
     // 当前audio是否在播放
-    isPlay:false
+    isPlay:false,
+    // 是否显示搜索框
+    isShowSearch:false
   },
   mutations: {
     //设置音乐url   
@@ -83,6 +85,9 @@ const store = new Vuex.Store({
     },
     setisPlay(state,type){
       state.isPlay = type
+    },
+    setisShowSearch(state,type){
+      state.isShowSearch = type
     }
   },
   actions: {
@@ -198,6 +203,9 @@ const store = new Vuex.Store({
     },
     getisPlay(state){
       return state.isPlay
+    },
+    getisShowSearch(state){
+      return state.isShowSearch
     }
   }
 })

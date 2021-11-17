@@ -12,6 +12,11 @@ const Mvs = () => import('views/mvs/Mvs.vue')
 const Detail = () => import('views/detail/Detail.vue')
 const Layout = () => import('views/layout/Layout.vue')
 const MvDetail = () => import('views/mvdetail/MvDetail.vue')
+const SearchDetail = () => import('views/searchdetail/SearchDetail.vue')
+const SearchSongs = () => import('views/searchdetail/childComps/SearchSongs.vue')
+const SearchLists = () => import('views/searchdetail/childComps/SearchLists.vue')
+const SearchMvs = () => import('views/searchdetail/childComps/SearchMvs.vue')
+
 
 
 const routes = [
@@ -42,6 +47,28 @@ const routes = [
       {
         path: 'detail/:id',
         component: Detail
+      },
+      {
+        path:'search/:params',
+        component:SearchDetail,
+        children:[
+          {
+            path:'/layout/search/:params',
+            redirect:'/layout/search/:params/songs'
+          },
+          {
+            path:'songs',
+            component:SearchSongs
+          },
+          {
+            path:'lists',
+            component:SearchLists
+          },
+          {
+            path:'mvs',
+            component:SearchMvs
+          }
+        ]
       }
     ]
   },
