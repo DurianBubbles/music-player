@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapMutations,mapActions} from 'vuex'
 export default {
   name:'LayoutHeader',
   data(){
@@ -34,9 +34,11 @@ export default {
             return
         }else{
             this.$router.push({path:'/layout/search/'+this.value})
+            this.getsearchSongs({keywords:this.value,limit:30,offset:0,type:1})
         }
       },
-      ...mapMutations(['setisShowSearch'])
+      ...mapMutations(['setisShowSearch']),
+      ...mapActions(['getsearchSongs'])
   }
 }
 </script>

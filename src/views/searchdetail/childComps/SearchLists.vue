@@ -1,14 +1,18 @@
 <template>
   <div class="searchlists">
-      <PlaylistCard v-for="item in 50" :key="item" url="https://p2.music.126.net/KL-7Odr2cc5cRIUH6SbLeg==/109951166613119051.jpg?param=300y300" name="测试文本" desc="最新推荐"/>
+      <PlaylistCard v-for="(item,index) in getsongCards" :key="index" :url="item.coverImgUrl" :name="item.name" :desc="item.playCount"/>
   </div>
 </template>
 
 <script>
 import PlaylistCard from 'components/PlaylistCard'
+import {mapGetters} from 'vuex'
 export default {
   name:'SearchLists',
-  components:{PlaylistCard}
+  components:{PlaylistCard},
+  computed:{
+    ...mapGetters(['getsongCards'])
+  }
 }
 </script>
 

@@ -1,14 +1,18 @@
 <template>
   <div class="searchmvs">
-    <NewMvsCard v-for="item in 4" :key="item" art="魔眼" name="漠河舞曲" playcount="20" url="https://p1.music.126.net/j8der5yrxRPS290q96eubw==/109951166576145787.jpg?param=500y260"/>
+    <NewMvsCard v-for="(item,index) in getsongMvs" :key="index" :art="item.artistName" :name="item.name" :playcount="item.playCount" :url="item.cover"/>
   </div>
 </template>
 
 <script>
 import NewMvsCard from 'components/NewMvsCard.vue'
+import {mapGetters} from 'vuex'
 export default {
   name:'SearchMvs',
-  components:{NewMvsCard}
+  components:{NewMvsCard},
+  computed:{
+    ...mapGetters(['getsongMvs'])
+  }
 }
 </script>
 

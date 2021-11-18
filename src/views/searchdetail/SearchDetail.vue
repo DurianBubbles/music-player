@@ -14,28 +14,36 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
 export default {
   name:'SearchDetail',
+  created(){
+    this.getsearchSongs({keywords:this.$route.params.params,limit:30,offset:0,type:1})
+  },
   methods:{
       showsongs(){
           this.$router.push('/layout/search/'+this.$route.params.params+'/songs')
+          this.getsearchSongs({keywords:this.$route.params.params,limit:30,offset:0,type:1})
       },
       showlists(){
           this.$router.push('/layout/search/'+this.$route.params.params+'/lists')
+          this.getsearchSongs({keywords:this.$route.params.params,limit:30,offset:0,type:1000})
       },
       showmvs(){
           this.$router.push('/layout/search/'+this.$route.params.params+'/mvs')
-      }
+          this.getsearchSongs({keywords:this.$route.params.params,limit:30,offset:0,type:1004})
+      },
+      ...mapActions(['getsearchSongs'])
   },
   computed:{
     songActive(){
-        return this.$route.path == '/layout/search/'+this.$route.params.params+'/songs' ? '#000' : ''
+        return this.$route.path === '/layout/search/'+this.$route.params.params+'/songs' ? '#000' : ''
       },
       listActive(){
-        return this.$route.path == '/layout/search/'+this.$route.params.params+'/lists' ? '#000' : ''
+        return this.$route.path === '/layout/search/'+this.$route.params.params+'/lists' ? '#000' : ''
       },
       mvsActive(){
-        return this.$route.path == '/layout/search/'+this.$route.params.params+'/mvs' ? '#000' : ''
+        return this.$route.path === '/layout/search/'+this.$route.params.params+'/mvs' ? '#000' : ''
       }
   }
 }

@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 // getMusicUrl,
 import { getMusicUrl, getMusicInfo, SongInfo,getComment,HotComment,getlyric } from 'network/songs.js'
 import {parseLyric} from "@/utils/lrcparse.js";
+import {getSearch} from 'network/search.js'
 
 //安装插件
 Vue.use(Vuex) 
@@ -38,7 +39,13 @@ const store = new Vuex.Store({
     // 当前audio是否在播放
     isPlay:false,
     // 是否显示搜索框
-    isShowSearch:false
+    isShowSearch:false,
+    // 搜索单曲内容
+    songlists:[],
+    // 搜索歌单内容
+    songCards:[],
+    // 搜索mv内容
+    songMvs:[]
   },
   mutations: {
     //设置音乐url   
@@ -88,6 +95,15 @@ const store = new Vuex.Store({
     },
     setisShowSearch(state,type){
       state.isShowSearch = type
+    },
+    setsonglists(state,info){
+      state.songlists = info
+    },
+    setsongCards(state,info){
+      state.songCards = info
+    },
+    setsongMvs(state,info){
+      state.songMvs = info
     }
   },
   actions: {
@@ -151,6 +167,18 @@ const store = new Vuex.Store({
       context.dispatch('getlyric',params.id)
       //5.更新歌词滚动index
       context.commit('setlyricIndex',0)
+    },
+    // 获取搜索单曲
+    getsearchSongs(context,params){
+      getSearch(params.keywords,params.limit,params.offset,params.type).then(res => {
+        if(params.type == 1){
+          context.commit('setsonglists',res.data.result.songs)
+        }else if(params.type == 1000){
+          context.commit('setsongCards',res.data.result.playlists)
+        }else{
+          context.commit('setsongMvs',res.data.result.mvs)
+        }
+      })
     }
   },
   getters: {
@@ -206,6 +234,15 @@ const store = new Vuex.Store({
     },
     getisShowSearch(state){
       return state.isShowSearch
+    },
+    getsonglists(state){
+      return state.songlists
+    },
+    getsongCards(state){
+      return state.songCards
+    },
+    getsongMvs(state){
+      return state.songMvs
     }
   }
 })

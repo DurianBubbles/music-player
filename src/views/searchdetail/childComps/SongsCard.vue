@@ -1,18 +1,19 @@
 <template>
   <div class="songsCard">
-    <div class="num">01</div>
+    <div class="num">{{num}}</div>
     <div class="wrap">
-        <div class="title">漠河舞厅</div>
-        <div class="art">柳爽</div>
-        <div class="album">1st.星球</div>
-        <div class="duration">05:34</div>
+        <div class="title">{{title}}</div>
+        <div class="art">{{art}}</div>
+        <div class="album">{{album}}</div>
+        <div class="duration">{{duration}}</div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name:'SongsCard'
+  name:'SongsCard',
+  props:['num','title','art','album','duration']
 }
 </script>
 
