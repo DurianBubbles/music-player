@@ -66,4 +66,13 @@ export default {
     justify-content: flex-start;
     width: 92%;
   }
+
+  ::-webkit-scrollbar{
+    background: #ededed;
+    width:5px;
+  } 
+
+  ::-webkit-scrollbar-thumb{
+    background: #D0D0D0;
+  }
 </style>
