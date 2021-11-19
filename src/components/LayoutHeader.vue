@@ -6,8 +6,8 @@
           <i class="el-icon-top-right"></i>
       </div>
       <div class="navroute">
-          <i class="el-icon-arrow-left"></i>
-          <i class="el-icon-arrow-right"></i>
+          <i class="el-icon-arrow-left" @click="goback"></i>
+          <i class="el-icon-arrow-right" @click="tonext"></i>
       </div>
       <div class="search">
           <div class="search-box">
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import {mapMutations,mapActions} from 'vuex'
+import {mapActions,mapMutations} from 'vuex'
 export default {
   name:'LayoutHeader',
   data(){
@@ -36,6 +36,12 @@ export default {
             this.$router.push({path:'/layout/search/'+this.value})
             this.getsearchSongs({keywords:this.value,limit:30,offset:0,type:1})
         }
+      },
+      goback(){
+          this.$router.back(1)
+      },
+      tonext(){
+          this.$router.go(1)
       },
       ...mapMutations(['setisShowSearch']),
       ...mapActions(['getsearchSongs'])
@@ -89,6 +95,10 @@ export default {
       justify-content: space-between;
       align-items: center;
       margin-left: 50px;
+  }
+
+  .navroute>i{
+      cursor: pointer;
   }
 
   .search{

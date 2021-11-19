@@ -24,7 +24,7 @@ export default {
   methods:{
     showdetail(id){
       this.$router.push({path:'/layout/detail/'+id})
-    }
+    } 
   },
   filters:{
     formatDesc(i){

@@ -73,7 +73,7 @@ const routes = [
     ]
   },
   {
-    path:'/mvdetail',
+    path:'/mvdetail/:id',
     component:MvDetail
   }
 

@@ -3,7 +3,7 @@
     <div class="place">地区：<Tabs class="tab" :tittle="area"/></div>
     <div class="type">类型：<Tabs class="tab" :tittle="type"/></div>
     <div class="sort">排序：<Tabs class="tab" :tittle="order"/></div>
-    <Mvlists :mvslist="mvsData" @click.native="tomvdetail"/>
+    <Mvlists :mvslist="mvsData" />
     <Pagination />
   </div>
 </template>
@@ -37,9 +37,6 @@ export default {
       getAllMvs().then(res => {
         this.mvsData = res.data.data
       })
-    },
-    tomvdetail(){
-      this.$router.push('/mvdetail')
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="miniplayer">
+  <div class="miniplayer" @click="setisShowSearch(false)">
     <SongInfo
       v-if="isShow" 
       :nowtime="getNowTime | formatCurrent"
@@ -70,7 +70,7 @@ export default {
         this.setisPlay(false)
       }
     },
-    ...mapMutations(["setNowTime",'setlyricIndex','setisPlay']),
+    ...mapMutations(["setNowTime",'setlyricIndex','setisPlay','setisShowSearch']),
   },
   filters: {
     transform(time) {

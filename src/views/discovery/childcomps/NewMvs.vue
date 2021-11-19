@@ -9,6 +9,7 @@
         :art="item.artists[0].name"
         v-for="(item, index) in mvs"
         :key="index"
+        @click.native="showmvDetail(item.id)"
       />
     </div>
   </div>
@@ -32,6 +33,11 @@ export default {
       mvs: [],
     };
   },
+  methods:{
+    showmvDetail(id){
+      this.$router.push('/mvdetail/'+id)
+    }
+  }
 };
 </script>
 

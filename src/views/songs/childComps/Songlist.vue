@@ -13,7 +13,7 @@
     />
   </div>
 </template>
-
+ 
 <script>
 import SongCard from "base/SongCard.vue";
 import {mapActions} from 'vuex'

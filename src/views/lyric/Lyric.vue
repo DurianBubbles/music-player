@@ -1,5 +1,5 @@
 <template>
-  <div class="content" :class="{choose:getisShowLyric}" v-if="isShow">
+  <div class="content" :class="{choose:getisShowLyric}" v-if="isShow" @click="setisShowSearch(false)">
     <div class="wrap">
       <div class="song">
         <div class="left">
@@ -47,7 +47,7 @@
 import CommentCard from "./childComps/CommentCard.vue";
 import Scroll from "base/Scroll.vue";
 
-import {mapGetters} from 'vuex'
+import {mapGetters,mapMutations} from 'vuex'
 export default {
   name: "Lyric",
   components: { CommentCard, Scroll },
@@ -63,6 +63,9 @@ export default {
     '$store.state.lyricIndex':function(){
       this.$refs.lyricsc.scrollTo(0,-this.getposition,1000)
     }
+  },
+  methods:{
+    ...mapMutations(['setisShowSearch'])
   }
 }
 </script>

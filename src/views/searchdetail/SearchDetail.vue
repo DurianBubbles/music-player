@@ -1,8 +1,8 @@
 <template>
   <div class="searchdetail">
      <div class="header">
-        <span class="keywords">漠河舞厅</span>
-        <span class="found">找到384个结果</span>
+        <span class="keywords">{{this.$route.params.params}}</span>
+        <span class="found">找到{{getsearchCount}}个结果</span>
      </div>
      <div class="tabs-wrap">
         <div class="showsong" @click="showsongs" :style="{color:songActive}">歌曲</div>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 export default {
   name:'SearchDetail',
   created(){
@@ -44,7 +44,8 @@ export default {
       },
       mvsActive(){
         return this.$route.path === '/layout/search/'+this.$route.params.params+'/mvs' ? '#000' : ''
-      }
+      },
+      ...mapGetters(['getsearchCount'])
   }
 }
 </script>

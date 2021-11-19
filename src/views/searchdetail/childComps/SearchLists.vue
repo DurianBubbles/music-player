@@ -1,6 +1,6 @@
 <template>
   <div class="searchlists">
-      <PlaylistCard v-for="(item,index) in getsongCards" :key="index" :url="item.coverImgUrl" :name="item.name" :desc="item.playCount"/>
+      <PlaylistCard @click.native="showdetail(item.id)" v-for="(item,index) in getsongCards" :key="index" :url="item.coverImgUrl" :name="item.name" :desc="item.playCount"/>
   </div>
 </template>
 
@@ -12,6 +12,12 @@ export default {
   components:{PlaylistCard},
   computed:{
     ...mapGetters(['getsongCards'])
+  },
+  methods:{
+    showdetail(id){
+      console.log(id)
+      this.$router.push({path:'/layout/detail/'+id})
+    }
   }
 }
 </script>

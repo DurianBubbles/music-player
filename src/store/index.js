@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import { getMusicUrl, getMusicInfo, SongInfo,getComment,HotComment,getlyric } from 'network/songs.js'
 import {parseLyric} from "@/utils/lrcparse.js";
 import {getSearch} from 'network/search.js'
+import {getMvComment,getMvInfo,getmvSrc} from 'network/mvs.js'
 
 //安装插件
 Vue.use(Vuex) 
@@ -45,7 +46,15 @@ const store = new Vuex.Store({
     // 搜索歌单内容
     songCards:[],
     // 搜索mv内容
-    songMvs:[]
+    songMvs:[],
+    // mv评论
+    mvcomment:{hot:[],new:[]},
+    // mv 信息
+    mvInfo:{},
+    // mv播放地址
+    mvurl:'',
+    // search总数
+    searchCount:0
   },
   mutations: {
     //设置音乐url   
@@ -104,6 +113,21 @@ const store = new Vuex.Store({
     },
     setsongMvs(state,info){
       state.songMvs = info
+    },
+    setHotMvComment(state,info){
+      state.mvcomment.hot = info
+    },
+    setNewMvComment(state,info){
+      state.mvcomment.new = info
+    },
+    setmvInfo(state,info){
+      state.mvInfo = info
+    },
+    setmvurl(state,url){
+      state.mvurl = url
+    },
+    setsearchCount(state,i){
+      state.searchCount = i
     }
   },
   actions: {
@@ -173,12 +197,40 @@ const store = new Vuex.Store({
       getSearch(params.keywords,params.limit,params.offset,params.type).then(res => {
         if(params.type == 1){
           context.commit('setsonglists',res.data.result.songs)
+          context.commit('setsearchCount',res.data.result.songCount)
         }else if(params.type == 1000){
           context.commit('setsongCards',res.data.result.playlists)
+          context.commit('setsearchCount',res.data.result.playlistCount)
         }else{
           context.commit('setsongMvs',res.data.result.mvs)
+          context.commit('setsearchCount',res.data.result.mvCount)
         }
       })
+    },
+    // 获取mv评论信息
+    getMvCommentInfo(context,params){
+      getMvComment(params).then(res => {
+        context.commit('setHotMvComment',res.data.hotComments)
+        context.commit('setNewMvComment',res.data.comments)
+      })
+    },
+    // 获取mv信息
+    getmvdata(context,params){
+      getMvInfo(params).then(res => {
+        context.commit('setmvInfo',res.data.data)
+      })
+    },
+    // 根据MV ID 获取播放路径
+    getMvPlayUrl(context,params){
+      getmvSrc(params).then(res => {
+        context.commit('setmvurl',res.data.data.url)
+      })
+    },
+    // 获取mv详情页所有信息
+    getMvDetailAllInfo(context,params){
+      context.dispatch('getMvCommentInfo',params.id)
+      context.dispatch('getmvdata',params.id)
+      context.dispatch('getMvPlayUrl',params.id)
     }
   },
   getters: {
@@ -243,6 +295,18 @@ const store = new Vuex.Store({
     },
     getsongMvs(state){
       return state.songMvs
+    },
+    getmvcomment(state){
+      return state.mvcomment
+    },
+    getmvInfo(state){
+      return state.mvInfo
+    },
+    getmvurl(state){
+      return state.mvurl
+    },
+    getsearchCount(state){
+      return state.searchCount
     }
   }
 })

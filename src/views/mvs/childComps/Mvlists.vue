@@ -1,6 +1,6 @@
 <template>
   <div id="mvlist">
-    <NewMvsCard :url="item.cover" :playcount="item.playCount" :name="item.name" :art="item.artistName" v-for="(item,index) in mvslist" :key="index"/>
+    <NewMvsCard @click.native="tomvdetail(item.id)" :url="item.cover" :playcount="item.playCount" :name="item.name" :art="item.artistName" v-for="(item,index) in mvslist" :key="index"/>
   </div>
 </template>
 
@@ -9,7 +9,12 @@ import NewMvsCard from 'components/NewMvsCard.vue'
 export default {
   name:'Mvlists',
   components:{NewMvsCard},
-  props:['mvslist']
+  props:['mvslist'],
+  methods:{
+    tomvdetail(id){
+      this.$router.push('/mvdetail/'+id)
+    }
+  }
 }
 </script>
 

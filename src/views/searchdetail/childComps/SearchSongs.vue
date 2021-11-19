@@ -6,25 +6,24 @@
         <li class="album">专辑</li>
         <li class="duration">时长</li>
     </ul>
-    <SongsCard :class="{move:isMove(index)}" :num="index" :title="item.name" :art="item.artists.map(item => item.name).join('/')" :album="item.album.name" :duration="item.duration" v-for="(item,index) in getsonglists" :key="index"/>
+    <SongsCard @click.native="playmusic(index)" :class="{move:isMove(index)}" :num="index" :title="item.name" :art="item.artists.map(item => item.name).join('/')" :album="item.album.name" :duration="item.duration" v-for="(item,index) in getsonglists" :key="index"/>
   </div>
 </template>
 
 <script>
 import SongsCard from './SongsCard.vue'
-import {mapGetters} from 'vuex'
+import {mapGetters,mapActions} from 'vuex'
 export default {
   name:'SearchSongs',
   components:{SongsCard},
-  data(){
-    return{
-      songlist:[]
-    }
-  },
   methods:{
     isMove(i){
       return i%2 == 1 ? true :false
-    }
+    },
+    playmusic(index){
+      this.setList({idlist:this.getsonglists.map(item => item.id),index})
+    },
+    ...mapActions(['setList'])
   },
   computed:{
     ...mapGetters(['getsonglists'])

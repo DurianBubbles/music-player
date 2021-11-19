@@ -1,6 +1,6 @@
 <template>
   <div class="searchmvs">
-    <NewMvsCard v-for="(item,index) in getsongMvs" :key="index" :art="item.artistName" :name="item.name" :playcount="item.playCount" :url="item.cover"/>
+    <NewMvsCard @click.native="tomvdetail(item.id)" v-for="(item,index) in getsongMvs" :key="index" :art="item.artistName" :name="item.name" :playcount="item.playCount" :url="item.cover"/>
   </div>
 </template>
 
@@ -12,6 +12,11 @@ export default {
   components:{NewMvsCard},
   computed:{
     ...mapGetters(['getsongMvs'])
+  },
+  methods:{
+    tomvdetail(id){
+      this.$router.push('/mvdetail/'+id)
+    }
   }
 }
 </script>
