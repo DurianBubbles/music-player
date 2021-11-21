@@ -1,6 +1,6 @@
 <template>
   <div class="songcard">
-    <span class="song-num">{{num}}</span>
+    <span class="song-num">{{num | filternum}}</span>
     <div class="img-wrap">
         <img v-lazy="url" alt="">
         <PlayIcon class="play-icon" size="26"/>
@@ -9,17 +9,27 @@
         <li>{{name}}</li>
         <li>{{art}}</li>
         <li>{{album}}</li>
-        <li>{{time}}</li>
+        <li>{{time | filtertime}}</li>
     </ul>
   </div>
 </template>
 
 <script>
 import PlayIcon from 'base/PlayIcon.vue'
+import {formatDuration,formatNum} from '@/utils/index.js'
 export default {
   name:'SongCard',
   components:{PlayIcon},
-  props:['name','art','album','time','url','num']
+  props:['name','art','album','time','url','num'],
+  filters:{
+    filtertime(time){
+      return formatDuration(time)
+    },
+    filternum(num){
+      if(num >= 100) return num
+      return formatNum(num)
+    }
+  }
 }
 </script>
 

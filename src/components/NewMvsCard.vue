@@ -3,7 +3,10 @@
     <div class="img-wrap">
         <img v-lazy="url" alt="">
         <PlayIcon class="playicon"/>
-        <p class="playnum">{{playcount}}</p>
+        <div class="count-wrap">
+          <span class="play-icon"></span>
+          <p class="playnum">{{playcount | filterplaycount}}</p>
+        </div>
     </div>
     <p class="name">{{name}}</p>
     <p class="artists">{{art}}</p>
@@ -12,10 +15,16 @@
 
 <script>
 import PlayIcon from 'base/PlayIcon.vue'
+import {formatNumber} from '@/utils/index.js'
 export default {
   name:'NewMvsCard',
   components:{PlayIcon},
-  props:['url','playcount','name','art']
+  props:['url','playcount','name','art'],
+  filters:{
+    filterplaycount(playcount){
+      return formatNumber(playcount)
+    }
+  }
 }
 </script>
 
@@ -42,28 +51,26 @@ export default {
     margin-bottom: 5px;
   }
 
-  .img-wrap .playnum{
-    display: block;
-    width: 30px;
-    height: 20px;
+   .img-wrap .count-wrap{
+     display: flex;
+     position: absolute;
+     top: 0;
+     right: 0;
+     align-items: center;
+   }
+
+  .img-wrap .count-wrap .playnum{
     font-size: 12px;
     color: #fff;
-    position: absolute;
-    top: 0;
-    right: 0;
     line-height: 20px;
   }
 
-  .img-wrap .playnum:after{
-    content: '';
+  .img-wrap .count-wrap  .play-icon{
     display: block;
-    position: absolute;
-    left: -45%;
-    top: 50%;
-    transform: translateY(-50%);
     width: 13px;
     height: 13px;
     background: url(~assets/img/discovery/playicon.svg) no-repeat center/cover;
+    margin-right: 2px;
   }
 
   .img-wrap .playicon{

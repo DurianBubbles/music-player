@@ -6,7 +6,7 @@
       :album="item.album.name"
       :time="item.duration"
       :url="item.album.picUrl"
-      :num="index"
+      :num="index+1"
       v-for="(item, index) in info"
       :key="index"
       @click.native="playmusic(index)"

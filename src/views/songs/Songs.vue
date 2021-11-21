@@ -1,6 +1,6 @@
 <template>
   <div class="songs">
-    <Tabs :tittle="tabs"/>
+    <Tabs :tittle="tabs" :currentIndex="currentIndex" @changeIndex="changeIndex"/>
     <Songlist :info='songlist'/>
   </div>
 </template>
@@ -23,7 +23,11 @@ export default {
         "韩国"
       ],
       // Songlist组件内容
-      songlist:[]
+      songlist:[],
+      // tabsindex
+      currentIndex:0,
+      // 用于保存请求类型type值
+      typeBox:[0,7,96,8,16]
     }
   },
   created(){
@@ -31,9 +35,13 @@ export default {
   },
   methods:{
     async getSonglist(type){
-      getTopSongs(type).then(res => {
+      await getTopSongs(type).then(res => {
         this.songlist = res.data.data
       })
+    },
+    changeIndex(index){
+      this.currentIndex = index
+      this.getSonglist(this.typeBox[index])
     }
   }
 }
