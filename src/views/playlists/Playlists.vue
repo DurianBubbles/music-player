@@ -1,13 +1,13 @@
 <template>
-  <div class="playlists">
+  <div class="playlists" ref="playlists">
     <TopPlaylistCard
       :imgurl="topCardInfo.coverImgUrl"
       :name="topCardInfo.name"
       :desc="topCardInfo.description"
     />
-    <Tabs :tittle="tabs" />
+    <Tabs :tittle="tabs" :currentIndex='currentIndex' @changeIndex="changeIndex"/>
     <PlaylistdCard :playlists='listCardInfo'/>
-    <Pagination />
+    <Pagination :currentPage="currentPage" :total="total" @onPageChange="onPageChange" :currentTag='currentTag'/>
   </div>
 </template>
 
@@ -22,10 +22,11 @@ export default {
   name: "Playlists",
   components: { TopPlaylistCard, Tabs, PlaylistdCard, Pagination },
   created() {
+    // 获取精品歌单
     getTopPlaylists().then((res) => {
       this.topCardInfo = res.data.playlists[0];
     });
-    this.getlistCardInfo()
+    this.getlistCardInfo({limit:50,offset:(1-1)*50,tag:'全部'})
   },
   data() {
     return {
@@ -50,15 +51,39 @@ export default {
       ],
       // PlaylistdCard组件内容
       listCardInfo: [],
+      // 当前页码
+      currentPage:1,
+      // 全部条目
+      total:0,
+      // 当前tag index
+      currentIndex:0
     };
   },
   methods: {
-    getlistCardInfo(limit,offset,tag) {
-      getPlaylists(limit,offset,tag).then((res) => {
+    // 获取listCardInfo
+    getlistCardInfo(params) {
+      getPlaylists(params).then((res) => {
         this.listCardInfo = res.data.playlists
+        this.total = res.data.total
       });
     },
+    // 更新歌单
+    async onPageChange(params){
+      params.limit = 50
+      params.offset = (params.page-1)*50
+      this.currentPage = params.page
+      this.$refs.playlists.scrollTop = 0
+      this.getlistCardInfo(params)
+    },
+    changeIndex(index){
+      this.currentIndex = index
+    }
   },
+  computed:{
+    currentTag(){
+      return this.tabs[this.currentIndex]
+    }
+  }
 };
 </script>
 

@@ -11,15 +11,15 @@ export const getTopPlaylists = (num=1,tag='全部') => request({
     }
 })
 
-// 获取推荐歌单
-export const getPlaylists = (num=50,offset=0,tag='全部') => request({
+// 获取推荐歌单 num=50,offset=0,tag='全部'
+export const getPlaylists = (params) => request({
     url:'/top/playlist',
     params:{
         // 获取歌单数量
-        limit:num,
+        limit:params.limit,
         // 偏移量
-        offset:offset,
+        offset:params.offset,
         // 歌单类型
-        tag:tag
+        cat:params.tag
     }
 })

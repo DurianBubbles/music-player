@@ -30,7 +30,7 @@ export default {
     this.getSonglist()
   },
   methods:{
-    getSonglist(type){
+    async getSonglist(type){
       getTopSongs(type).then(res => {
         this.songlist = res.data.data
       })

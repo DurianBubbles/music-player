@@ -1,13 +1,21 @@
 <template>
   <ul class="tabs">
-      <li v-for="(item,index) in tittle" :key="index">{{item}}</li>
+      <li @click="changeIndex(index)" v-for="(item,index) in tittle" :key="index" :class="{clicked:isclick(index)}">{{item}}</li>
   </ul>
 </template>
 
 <script>
 export default {
   name:'Tabs',
-  props:['tittle']
+  props:['tittle','currentIndex'],
+  methods:{
+    isclick(index){
+      return this.currentIndex == index ? true : false
+    },
+    changeIndex(index){
+      this.$emit('changeIndex',index)
+    }
+  }
 }
 </script>
 
@@ -29,5 +37,9 @@ export default {
       line-height: 38px;
       cursor: pointer;
       margin: 0 10px;
+  }
+
+  .tabs li.clicked{
+    color: #d33a31;
   }
 </style>
