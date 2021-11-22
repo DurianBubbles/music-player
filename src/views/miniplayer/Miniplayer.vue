@@ -12,7 +12,7 @@
     <Controller @isPlay="isplay"/>
     <Mode @position="setVolume" />
     <MusicProgress :current="progressIndex" @position="setcurrent" />
-    <audio ref="audio" autoplay @timeupdate="refreshTime" :src="getUrl"></audio>
+    <audio ref="audio" autoplay @timeupdate="refreshTime" :src="getUrl" @ended="end"></audio>
   </div>
 </template>
 
@@ -22,7 +22,7 @@ import Controller from "base/Controller.vue";
 import Mode from "base/Mode.vue";
 import MusicProgress from "./childComps/MusicProgress.vue";
 
-import { mapGetters, mapMutations } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
 import { formatDuration, formatCurrentTime } from "@/utils/index.js";
 export default {
   name: "Miniplayer",
@@ -70,7 +70,12 @@ export default {
         this.setisPlay(false)
       }
     },
+    end(){
+      // 顺序播放
+      this.toNext()
+    },
     ...mapMutations(["setNowTime",'setlyricIndex','setisPlay','setisShowSearch']),
+    ...mapActions(['toNext'])
   },
   filters: {
     transform(time) {
