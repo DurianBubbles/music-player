@@ -3,7 +3,7 @@
     <el-pagination
       layout="prev, pager, next"
       :current-page.sync="currentPage"
-      :page-size="50"
+      :page-size="pagesize"
       :total="total"
       @current-change="onPageChange"
     >
@@ -14,18 +14,10 @@
 <script>
 export default {
   name: "Pagination",
-  props:['currentPage','total','currentTag'],
+  props:['total','pagesize','currentPage'],
   methods:{
     onPageChange(page){
-      this.$emit('onPageChange',{tag:this.currentTag,page:page})
-    }
-  },
-  watch:{
-    currentTag: {
-      deep: true,  // 深度监听
-      handler(newVal) {
-         this.$emit('onPageChange',{tag:newVal,page:1})
-      }
+      this.$emit('onPageChange',page)
     }
   }
 };

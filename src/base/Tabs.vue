@@ -7,13 +7,13 @@
 <script>
 export default {
   name:'Tabs',
-  props:['tittle','currentIndex'],
+  props:['tittle','currentIndex','currentTag'],
   methods:{
     isclick(index){
       return this.currentIndex == index ? true : false
     },
     changeIndex(index){
-      this.$emit('changeIndex',index)
+      this.$emit('changeIndex',{index:index,currentTag:this.currentTag})
     }
   }
 }

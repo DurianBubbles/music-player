@@ -39,9 +39,9 @@ export default {
         this.songlist = res.data.data
       })
     },
-    changeIndex(index){
-      this.currentIndex = index
-      this.getSonglist(this.typeBox[index])
+    changeIndex(info){
+      this.currentIndex = info.index
+      this.getSonglist(this.typeBox[info.index])
     }
   }
 }

@@ -17,6 +17,7 @@
       :total="total"
       @onPageChange="onPageChange"
       :currentTag="currentTag"
+      :pagesize="50"
     />
   </div>
 </template>
@@ -78,18 +79,18 @@ export default {
       });
     },
     // 更新歌单
-    async onPageChange(params) {
-      params.limit = 50;
-      params.offset = (params.page - 1) * 50;
-      this.currentPage = params.page;
+    async onPageChange(page) {
+      this.currentPage = page;
       this.$refs.playlists.scrollTop = 0;
-      this.getlistCardInfo(params);
-      getTopPlaylists(1, params.tag).then((res) => {
+      this.getlistCardInfo({num:50,offset:(page-1) * 50,tag:this.tabs[this.currentIndex]});
+    },
+    changeIndex(info) {
+      this.currentIndex = info.index
+      this.currentPage = 1
+      this.getlistCardInfo({num:50,offset:0,tag:this.tabs[info.index]})
+      getTopPlaylists(1,this.tabs[info.index]).then((res) => {
         this.topCardInfo = res.data.playlists[0];
       });
-    },
-    changeIndex(index) {
-      this.currentIndex = index;
     },
     showdetail(id){
       this.$router.push({path:'/layout/detail/'+id})

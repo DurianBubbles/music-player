@@ -1,7 +1,7 @@
 import { request } from './index'
 
 // 获取全部MV
-export const getAllMvs = (area='全部',type='全部',order='上升最快',limit='40',offset='0') => request({
+export const getAllMvs = (area='全部',type='全部',order='上升最快',limit=40,offset=0) => request({
     url:'/mv/all',
     params:{
         area:area,
@@ -21,7 +21,7 @@ export const getMvComment = (id,limit=20,offset=0) => request({
         offset
     }
 })
-
+ 
 // 根据id获取mv信息
 export const getMvInfo = mvid => request({
     url:'/mv/detail',
