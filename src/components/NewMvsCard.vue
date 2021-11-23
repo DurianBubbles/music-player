@@ -63,6 +63,7 @@ export default {
     font-size: 12px;
     color: #fff;
     line-height: 20px;
+    padding-right: 5px;
   }
 
   .img-wrap .count-wrap  .play-icon{

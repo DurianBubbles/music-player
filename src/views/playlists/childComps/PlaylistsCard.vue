@@ -3,13 +3,14 @@
     <PlaylistCard v-for="(item,index) in playlists" :key="index" :url="item.coverImgUrl"
       :desc="item.playCount | formatDesc"
       :name="item.name"
-      @click.native="showdetail(item.id)"
+      @click.native="showdetail(item.id)" 
     />
   </div>
 </template>
 
 <script>
 import PlaylistCard from 'components/PlaylistCard.vue'
+import {formatNumber} from '@/utils/index.js'
 export default {
   name:'PlaylistsCard',
   components:{PlaylistCard},
@@ -28,7 +29,7 @@ export default {
   },
   filters:{
     formatDesc(i){
-      return '播放量：'+i
+      return '播放量：'+ formatNumber(i)
     }
   }
 }

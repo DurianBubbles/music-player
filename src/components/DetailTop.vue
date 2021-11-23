@@ -14,8 +14,9 @@
             <i></i>
             <p>播放全部</p>
         </div>
-        <p class="tag">标签：<span>{{info.tag | addspace}}</span></p>
-        <p class="brief">简介：<span>{{info.biref}}</span></p>
+        
+        <p class="tag" v-if="info.tag !== ''">标签：<span>{{info.tag | addspace}}</span></p>
+        <p class="brief" :title="info.biref" v-if="info.biref !== ''">简介：<span>{{info.biref}}</span></p>
     </div>
   </div>
 </template>
@@ -127,5 +128,9 @@ export default {
   .brief{
     font-size: 13px;
     color: #4a4a4a;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
   }
 </style>

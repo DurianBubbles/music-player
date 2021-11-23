@@ -6,7 +6,7 @@
           <p>专辑</p>
           <p>时长</p>
       </div>
-      <SongCard @click.native="playmusic(index)" v-for="(item,index) in list" :key="index" :name='item.songName' :art='item.art' :album='item.album' :time='item.duration' :url='item.songImgUrl' :num='index' />
+      <SongCard @click.native="playmusic(index)" v-for="(item,index) in list" :key="index" :name='item.songName' :art='item.art' :album='item.album' :time='item.duration' :url='item.songImgUrl' :num='index+1' />
   </div>
 </template>
 

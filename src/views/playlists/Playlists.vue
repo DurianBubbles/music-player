@@ -4,10 +4,20 @@
       :imgurl="topCardInfo.coverImgUrl"
       :name="topCardInfo.name"
       :desc="topCardInfo.description"
+      @click.native="showdetail(topCardInfo.id)"
     />
-    <Tabs :tittle="tabs" :currentIndex='currentIndex' @changeIndex="changeIndex"/>
-    <PlaylistdCard :playlists='listCardInfo'/>
-    <Pagination :currentPage="currentPage" :total="total" @onPageChange="onPageChange" :currentTag='currentTag'/>
+    <Tabs
+      :tittle="tabs"
+      :currentIndex="currentIndex"
+      @changeIndex="changeIndex"
+    />
+    <PlaylistdCard :playlists="listCardInfo" />
+    <Pagination
+      :currentPage="currentPage"
+      :total="total"
+      @onPageChange="onPageChange"
+      :currentTag="currentTag"
+    />
   </div>
 </template>
 
@@ -26,7 +36,7 @@ export default {
     getTopPlaylists().then((res) => {
       this.topCardInfo = res.data.playlists[0];
     });
-    this.getlistCardInfo({limit:50,offset:(1-1)*50,tag:'全部'})
+    this.getlistCardInfo({ limit: 50, offset: (1 - 1) * 50, tag: "全部" });
   },
   data() {
     return {
@@ -52,38 +62,44 @@ export default {
       // PlaylistdCard组件内容
       listCardInfo: [],
       // 当前页码
-      currentPage:1,
+      currentPage: 1,
       // 全部条目
-      total:0,
+      total: 0,
       // 当前tag index
-      currentIndex:0
+      currentIndex: 0,
     };
   },
   methods: {
     // 获取listCardInfo
     getlistCardInfo(params) {
       getPlaylists(params).then((res) => {
-        this.listCardInfo = res.data.playlists
-        this.total = res.data.total
+        this.listCardInfo = res.data.playlists;
+        this.total = res.data.total;
       });
     },
     // 更新歌单
-    async onPageChange(params){
-      params.limit = 50
-      params.offset = (params.page-1)*50
-      this.currentPage = params.page
-      this.$refs.playlists.scrollTop = 0
-      this.getlistCardInfo(params)
+    async onPageChange(params) {
+      params.limit = 50;
+      params.offset = (params.page - 1) * 50;
+      this.currentPage = params.page;
+      this.$refs.playlists.scrollTop = 0;
+      this.getlistCardInfo(params);
+      getTopPlaylists(1, params.tag).then((res) => {
+        this.topCardInfo = res.data.playlists[0];
+      });
     },
-    changeIndex(index){
-      this.currentIndex = index
-    }
+    changeIndex(index) {
+      this.currentIndex = index;
+    },
+    showdetail(id){
+      this.$router.push({path:'/layout/detail/'+id})
+    } 
   },
-  computed:{
-    currentTag(){
-      return this.tabs[this.currentIndex]
-    }
-  }
+  computed: {
+    currentTag() {
+      return this.tabs[this.currentIndex];
+    },
+  },
 };
 </script>
 
