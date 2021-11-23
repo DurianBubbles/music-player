@@ -16,8 +16,8 @@ const SearchDetail = () => import('views/searchdetail/SearchDetail.vue')
 const SearchSongs = () => import('views/searchdetail/childComps/SearchSongs.vue')
 const SearchLists = () => import('views/searchdetail/childComps/SearchLists.vue')
 const SearchMvs = () => import('views/searchdetail/childComps/SearchMvs.vue')
-
-
+const Songlist = () => import('views/detail/childComps/List.vue')
+const ListDetailComment = () => import('views/detail/childComps/ListDetailComment.vue')
 
 const routes = [
   {
@@ -46,7 +46,21 @@ const routes = [
       },
       {
         path: 'detail/:id',
-        component: Detail
+        component: Detail,
+        children:[
+          {
+            path:'/layout/detail/:id',
+            redirect:'/layout/detail/:id/songlist'
+          },
+          {
+            path:'songlist',
+            component:Songlist
+          },
+          {
+            path:'comment',
+            component:ListDetailComment
+          }
+        ]
       },
       {
         path:'search/:params',

@@ -13,16 +13,32 @@
 <script>
 import SongCard from 'base/SongCard.vue'
 
-import {mapActions} from 'vuex'
+import {mapActions,mapMutations} from 'vuex'
+
+import {getListDetail,SongInfo} from 'network/detail.js'
+import {getMusicInfo} from 'network/songs.js'
 export default {
   name:'List',
   components:{SongCard},
-  props:['list'],
+  created(){
+    getListDetail(this.$route.params.id).then(res => {
+      getMusicInfo(res.data.playlist.trackIds.map(item => item.id).join(',')).then(res => {
+        res.data.songs.map(item => this.list.push(new SongInfo(item)))
+        this.setsongIdList(this.list.map(item => item.id))
+      })
+    })
+  },
+  data(){
+    return {
+      list:[]
+    }
+  },
   methods:{
     playmusic(index){
       this.setList({idlist:this.list.map(item => item.id),index})
     },
-    ...mapActions(['setList'])
+    ...mapActions(['setList']),
+    ...mapMutations(['setsongIdList'])
   }
 }
 </script>

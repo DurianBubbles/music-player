@@ -1,34 +1,40 @@
 <template>
   <div class="detail">
-    <DetailTop :list='songList' :info='detailTopInfo'/>
-    <Control />
-    <List :list='songList'/>
+    <DetailTop :list='getsongIdList' :info='detailTopInfo'/>
+    <Control :count="count"/>
+    <keep-alive>
+      <router-view></router-view>
+    </keep-alive>
   </div> 
 </template>
 
 <script>
 import Control from './childComps/Control.vue'
 import DetailTop from 'components/DetailTop.vue'
-import List from './childComps/List.vue'
 
-import {getListDetail,DetailPlayList,SongInfo} from 'network/detail.js'
-import {getMusicInfo} from 'network/songs.js'
+import {getListDetail,DetailPlayList,getListDetailComment} from 'network/detail.js'
+import {mapGetters} from 'vuex'
 export default {
   name:'Detail',
-  components:{DetailTop,Control,List},
+  components:{DetailTop,Control},
   data(){
     return {
+      // 顶部信息
       detailTopInfo:{},
-      songList:[]
+      // 评论总数
+      count:0
     }
   },
   created(){
     getListDetail(this.$route.params.id).then(res => {
       this.detailTopInfo = new DetailPlayList(res)
-      getMusicInfo(res.data.playlist.trackIds.map(item => item.id).join(',')).then(res => {
-        res.data.songs.map(item => this.songList.push(new SongInfo(item)))
-      })
+      getListDetailComment({id:this.$route.params.id,limit:1,offset:0}).then((res) => {
+        this.count = res.data.total
+      });
     })
+  },
+  computed:{
+    ...mapGetters(['getsongIdList'])
   }
 }
 </script>

@@ -8,6 +8,16 @@ export const getListDetail = id => request({
     }
 })
 
+// 根据歌单ID获取歌单评论
+export const getListDetailComment = params => request({
+    url:'/comment/playlist',
+    params:{
+        id:params.id,
+        limit:params.limit,
+        offset:params.offset
+    }
+})
+
 // 封装歌单信息
 export class DetailPlayList{
     constructor(i){

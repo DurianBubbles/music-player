@@ -28,7 +28,7 @@ export default {
   props:['info','list'],
   methods:{
     playmusic(index){
-      this.setList({idlist:this.list.map(item => item.id),index})
+      this.setList({idlist:this.list,index})
     },
     ...mapActions(['setList'])
   },
@@ -49,6 +49,7 @@ export default {
       width: 90%;
       margin: 0 auto;
       display: flex;
+      margin-bottom: 30px;
   }
 
   .img-wrap{

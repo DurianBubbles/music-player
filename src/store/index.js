@@ -54,7 +54,9 @@ const store = new Vuex.Store({
     // mv播放地址
     mvurl:'',
     // search总数
-    searchCount:0
+    searchCount:0,
+    // 歌单ID
+    songIdList:[]
   },
   mutations: {
     //设置音乐url   
@@ -128,6 +130,9 @@ const store = new Vuex.Store({
     },
     setsearchCount(state,i){
       state.searchCount = i
+    },
+    setsongIdList(state,info){
+      state.songIdList = info
     }
   },
   actions: {
@@ -307,6 +312,9 @@ const store = new Vuex.Store({
     },
     getsearchCount(state){
       return state.searchCount
+    },
+    getsongIdList(state){
+      return state.songIdList
     }
   }
 })
