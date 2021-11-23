@@ -1,5 +1,5 @@
 <template>
-  <div class="mvdetail">
+  <div class="mvdetail" ref="mvdetail">
     <div class="wrap">
       <div class="top">
         <p>mv详情</p>
@@ -28,12 +28,12 @@
       </div>
       <div
         class="commentnone"
-        v-if="getmvcomment.hot.length == 0 && getmvcomment.new.length == 0"
+        v-if="getmvcomment.hot == undefined && getmvcomment.new == undefined"
       >
         <p>暂时还没有评论哦~</p>
       </div>
       <div class="bottom" v-else>
-        <div class="block" v-if="getmvcomment.hot.length !== 0">
+        <div class="block" v-if="getmvcomment.hot !== undefined">
           <p>精彩评论</p>
           <CommentCard
             :imgurl="item.user.avatarUrl"
@@ -44,7 +44,7 @@
             :key="index"
           />
         </div>
-        <div class="block" v-if="getmvcomment.new.length !== 0">
+        <div class="block" v-if="getmvcomment.new !== undefined">
           <p>最新评论</p>
           <CommentCard
             :imgurl="item.user.avatarUrl"
@@ -56,24 +56,36 @@
           />
         </div>
       </div>
+      <Pagination :total="getmvCount" :currentPage="currentPage" :pagesize="20" @onPageChange="onPageChange"/>
     </div>
   </div>
 </template>
 
 <script>
 import CommentCard from "views/lyric/childComps/CommentCard.vue";
+import Pagination from 'base/Pagination.vue'
 import { mapGetters, mapActions } from "vuex";
 export default {
   name: "MvDetail",
-  components: { CommentCard },
+  components: { CommentCard,Pagination },
+  data(){
+    return {
+      currentPage:1
+    }
+  },
   created() {
     this.getMvDetailAllInfo({ id: this.$route.params.id });
   },
   computed: {
-    ...mapGetters(["getmvcomment", "getmvInfo", "getmvurl"]),
+    ...mapGetters(["getmvcomment", "getmvInfo", "getmvurl",'getmvCount']),
   },
   methods: {
-    ...mapActions(["getMvDetailAllInfo"]),
+    onPageChange(page){
+      this.currentPage = page
+      this.$refs.mvdetail.scrollTop = 0
+      this.getMvCommentInfo({id:this.$route.params.id,limit:20,offset:(page -1 ) *20})
+    },
+    ...mapActions(["getMvDetailAllInfo","getMvCommentInfo"]),
   },
 };
 </script>

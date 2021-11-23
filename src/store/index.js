@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-// getMusicUrl,
+// getMusicUrl, 
 import { getMusicUrl, getMusicInfo, SongInfo,getComment,HotComment,getlyric } from 'network/songs.js'
 import {parseLyric} from "@/utils/lrcparse.js";
 import {getSearch} from 'network/search.js'
@@ -56,7 +56,9 @@ const store = new Vuex.Store({
     // search总数
     searchCount:0,
     // 歌单ID
-    songIdList:[]
+    songIdList:[],
+    // MV界面评论条目
+    mvCount:0
   },
   mutations: {
     //设置音乐url   
@@ -133,6 +135,9 @@ const store = new Vuex.Store({
     },
     setsongIdList(state,info){
       state.songIdList = info
+    },
+    setmvCount(state,i){
+      state.mvCount = i
     }
   },
   actions: {
@@ -215,8 +220,10 @@ const store = new Vuex.Store({
     // 获取mv评论信息
     getMvCommentInfo(context,params){
       getMvComment(params).then(res => {
+        console.log(res)
         context.commit('setHotMvComment',res.data.hotComments)
         context.commit('setNewMvComment',res.data.comments)
+        context.commit('setmvCount',res.data.total)
       })
     },
     // 获取mv信息
@@ -233,7 +240,7 @@ const store = new Vuex.Store({
     },
     // 获取mv详情页所有信息
     getMvDetailAllInfo(context,params){
-      context.dispatch('getMvCommentInfo',params.id)
+      context.dispatch('getMvCommentInfo',{id:params.id,limit:20,offset:0})
       context.dispatch('getmvdata',params.id)
       context.dispatch('getMvPlayUrl',params.id)
     }
@@ -315,6 +322,9 @@ const store = new Vuex.Store({
     },
     getsongIdList(state){
       return state.songIdList
+    },
+    getmvCount(state){
+      return state.mvCount
     }
   }
 })

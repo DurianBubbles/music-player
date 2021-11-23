@@ -1,6 +1,6 @@
 <template>
   <div class="listDetail">
-    <div class="block">
+    <div class="block" v-if="commentList.hot !== undefined"  >
       <p>精彩评论</p>
       <CommentCard
         :imgurl="item.user.avatarUrl"
@@ -11,7 +11,7 @@
         :key="index"
       />
     </div>
-    <div class="block">
+    <div class="block" v-if="commentList.new !== undefined">
       <p>最新评论</p>
       <CommentCard
         :imgurl="item.user.avatarUrl"
@@ -22,15 +22,17 @@
         :key="index"
       />
     </div>
+    <Pagination :total="count" :pagesize="20" :currentPage="currentPage" @onPageChange="onPageChange"/>
   </div>
 </template>
 
 <script>
 import CommentCard from "views/lyric/childComps/CommentCard.vue";
+import Pagination from 'base/Pagination.vue'
 import { getListDetailComment } from "network/detail.js";
 export default {
   name: "ListDetailComment",
-  components: { CommentCard },
+  components: { CommentCard,Pagination },
   created() {
     this.getComment({ id: this.$route.params.id, limit: 20, offset: 0 });
   },
@@ -39,12 +41,19 @@ export default {
       getListDetailComment(params).then((res) => {
         this.commentList.hot = res.data.hotComments;
         this.commentList.new = res.data.comments;
+        this.count = res.data.total
       });
+    },
+    onPageChange(page){
+      this.currentPage = page
+      this.getComment({id:this.$route.params.id,limit:20,offset:(page - 1) * 20})
     }
   },
   data() {
     return {
-      commentList: { hot: [], new: [] }
+      commentList: { hot: [], new: [] },
+      currentPage:1,
+      count:0
     };
   }
 };

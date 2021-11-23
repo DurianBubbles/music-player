@@ -13,12 +13,12 @@ export const getAllMvs = (area='全部',type='全部',order='上升最快',limit
 })
 
 // 根据ID获取mv评论
-export const getMvComment = (id,limit=20,offset=0) => request({
+export const getMvComment = (params) => request({
     url:'/comment/mv',
     params:{
-        id,
-        limit,
-        offset
+        id:params.id,
+        limit:params.limit,
+        offset:params.offset
     }
 })
  
