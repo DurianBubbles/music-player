@@ -1,9 +1,15 @@
 <template>
   <div class="layout-header" @click="setisShowSearch(false)">
     <div class="navicon">
-      <i class="el-icon-s-home" @click="gohome"></i>
-      <i class="el-icon-minus" @click="screendown"></i>
-      <i class="el-icon-top-right" @click="screenup"></i>
+      <div class="toHome" @click="gohome">
+        <img src="~assets/img/miniplayer/home.svg" alt="">
+      </div>
+      <div class="minus" @click="screendown">
+        <img src="~assets/img/miniplayer/min.svg" alt="">
+      </div>
+      <div class="max" @click="screenup">
+        <img src="~assets/img/miniplayer/max.svg" alt="">
+      </div>
     </div>
     <div class="down-wrap" v-if="getisShowLyric == true" @click="setHideLyric">
       <div class="img-wrap">
@@ -111,6 +117,40 @@ export default {
   justify-content: space-between;
   padding: 10px 10px;
   font-size: 12px;
+}
+
+.navicon>div{
+  width: 14px;
+  height: 14px;
+  padding: 2px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.navicon>div img{
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+   transition: all .5s;
+}
+
+.navicon:hover>div img{
+  opacity: 1;
+}
+
+.navicon .toHome{
+  background:#ed655a ;
+  padding: 0.5px;
+}
+
+.navicon .minus{
+  background: #e0c04c;
+}
+
+.navicon .max{
+  background: #72be47;
+  padding: 2px;
 }
 
 .navicon > i {

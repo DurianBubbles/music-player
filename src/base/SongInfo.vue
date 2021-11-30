@@ -7,8 +7,11 @@
         alt=""
       />
       </div>
-      <div class="cover-wrap">
+      <div class="cover-wrap" v-if="getisShowLyric == false">
         <img src="~assets/img/miniplayer/updown.svg" alt="">
+      </div>
+      <div class="cover-wrap" v-else>
+        <img src="~assets/img/miniplayer/downup.svg" alt="">
       </div>
       <div class="cover"></div>
     </div>
@@ -26,7 +29,7 @@
 </template>
 
 <script>
-import {mapMutations} from 'vuex'
+import {mapMutations,mapGetters} from 'vuex'
 export default {
   name: "SongInfo",
   props:['imgurl','name','art','duration','nowtime'],
@@ -35,6 +38,9 @@ export default {
       this.setisShowLyric()
     },
     ...mapMutations(['setisShowLyric'])
+  },
+  computed:{
+    ...mapGetters(['getisShowLyric'])
   }
 };
 </script>
