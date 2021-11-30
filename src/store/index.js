@@ -88,6 +88,9 @@ const store = new Vuex.Store({
     setisShowLyric(state){
       state.isShowLyric = !state.isShowLyric
     },
+    setHideLyric(state){
+      state.isShowLyric = false
+    },
     setHotComment(state,info){
       state.comment.hot.push(info)
     },

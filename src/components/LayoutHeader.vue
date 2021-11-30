@@ -5,7 +5,12 @@
       <i class="el-icon-minus" @click="screendown"></i>
       <i class="el-icon-top-right" @click="screenup"></i>
     </div>
-    <div class="navroute">
+    <div class="down-wrap" v-if="getisShowLyric == true" @click="setHideLyric">
+      <div class="img-wrap">
+        <img src="~assets/img/miniplayer/down.svg" alt="" />
+      </div>
+    </div>
+    <div class="navroute" v-else>
       <i class="el-icon-arrow-left" @click="goback"></i>
       <i class="el-icon-arrow-right" @click="tonext"></i>
     </div>
@@ -27,13 +32,12 @@
 </template>
 
 <script>
-import { mapActions, mapMutations } from "vuex";
+import { mapActions, mapMutations, mapGetters } from "vuex";
 export default {
   name: "LayoutHeader",
   data() {
     return {
       value: "",
-      fullscreen: false,
     };
   },
   methods: {
@@ -58,39 +62,36 @@ export default {
     },
     screenup() {
       let element = document.documentElement;
-      if (!this.fullscreen) {
-        if (element.requestFullscreen) {
-          element.requestFullscreen();
-        } else if (element.webkitRequestFullScreen) {
-          element.webkitRequestFullScreen();
-        } else if (element.mozRequestFullScreen) {
-          element.mozRequestFullScreen();
-        } else if (element.msRequestFullscreen) {
-          // IE11
-          element.msRequestFullscreen();
-        }
-        this.fullscreen = !this.fullscreen;
+      if (element.requestFullscreen) {
+        element.requestFullscreen();
+      } else if (element.webkitRequestFullScreen) {
+        element.webkitRequestFullScreen();
+      } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+      } else if (element.msRequestFullscreen) {
+        // IE11
+        element.msRequestFullscreen();
       }
     },
     screendown() {
-      if (this.fullscreen) {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        } else if (document.webkitCancelFullScreen) {
-          document.webkitCancelFullScreen();
-        } else if (document.mozCancelFullScreen) {
-          document.mozCancelFullScreen();
-        } else if (document.msExitFullscreen) {
-          document.msExitFullscreen();
-        }
-        this.fullscreen = !this.fullscreen;
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitCancelFullScreen) {
+        document.webkitCancelFullScreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
       }
     },
-    gohome(){
-        this.$router.push('/layout/discovery')
+    gohome() {
+      this.$router.push("/layout/discovery");
     },
-    ...mapMutations(["setisShowSearch"]),
+    ...mapMutations(["setisShowSearch", "setHideLyric"]),
     ...mapActions(["getsearchSongs"]),
+  },
+  computed: {
+    ...mapGetters(["getisShowLyric"]),
   },
 };
 </script>
@@ -141,6 +142,35 @@ export default {
   justify-content: space-between;
   align-items: center;
   margin-left: 50px;
+}
+
+.down-wrap {
+  height: 100%;
+  float: left;
+  width: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 50px;
+}
+
+.down-wrap .img-wrap {
+  height: 22px;
+  width: 22px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.down-wrap .img-wrap:hover {
+  background: #ca4841;
+}
+
+.down-wrap .img-wrap img {
+  width: 100%;
+  height: 100%;
 }
 
 .navroute > i {
