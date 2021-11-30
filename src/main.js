@@ -9,6 +9,7 @@ import VueLazyLoad from 'vue-lazyload'
 
 import router from './router/index.js'
 
+
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)

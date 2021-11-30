@@ -31,5 +31,6 @@ export default {
   position: relative;
   height: 100vh;
   overflow: hidden;
+  min-width: 1000px;
 }
 </style>
