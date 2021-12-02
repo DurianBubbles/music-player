@@ -8,7 +8,7 @@
         <div class="art">
             <img v-lazy="info.collecturl" alt="">
             <p class="name">{{info.collectname}}</p>
-            <p class="time">{{info.createtime}} 创建</p>
+            <p class="time">{{info.createtime | formatTime}} 创建</p>
         </div>
         <div class="playBtn" @click="playmusic(0)">
             <i></i>
@@ -23,6 +23,7 @@
 
 <script>
 import {mapActions} from 'vuex'
+import {formatDate} from '@/utils/index.js'
 export default {
   name:'DetailTop',
   props:['info','list'],
@@ -39,6 +40,9 @@ export default {
       }else{
         return i.join('/')
       }
+    },
+    formatTime(value){
+      return formatDate(value)
     }
   }
 }
