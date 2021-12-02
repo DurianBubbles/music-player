@@ -1,5 +1,5 @@
 <template>
-  <div class="layout" @click="setisShowSearch(false)">
+  <div class="layout" @click="setisShowSearch(false),setHideSonglist(false)">
     <LayoutMenu />
     <keep-alive exclude="Detail">
       <router-view></router-view>
@@ -15,7 +15,7 @@ export default {
   name: "Layout",
   components: { LayoutMenu },
   methods:{
-    ...mapMutations(['setisShowSearch'])
+    ...mapMutations(['setisShowSearch','setHideSonglist'])
   }
 };
 </script>

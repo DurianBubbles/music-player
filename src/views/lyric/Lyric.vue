@@ -1,5 +1,5 @@
 <template>
-  <div class="content" :class="{choose:getisShowLyric}" v-if="isShow" @click="setisShowSearch(false)">
+  <div class="content" :class="{choose:getisShowLyric}" v-if="isShow" @click="setisShowSearch(false),setHideSonglist(false)">
     <div class="wrap">
       <div class="song">
         <div class="left">
@@ -65,7 +65,7 @@ export default {
     }
   },
   methods:{
-    ...mapMutations(['setisShowSearch'])
+    ...mapMutations(['setisShowSearch','setHideSonglist'])
   }
 }
 </script>
