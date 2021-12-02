@@ -147,6 +147,8 @@ const store = new Vuex.Store({
     },
     setplaylistclearn(state){
       state.playlist = []
+      state.isPlay = false
+      state.url = ''
     }
   },
   actions: {
