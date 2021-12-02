@@ -6,17 +6,6 @@
               <div @click="tosearchdetail(item.first)" v-for="(item,index) in hotsInfo" :key="index">{{item.first}}</div>
           </div>
       </div>
-      <div class="block">
-          <p class="tittle">历史搜索</p>
-          <div class="tags">
-              <div>春风吹</div>
-              <div>删了吧</div>
-              <div>石头计划评选</div>
-              <div>年轮</div>
-              <div>金玉良缘</div>
-              <div>薛之谦</div>
-          </div>
-      </div>
   </div>
 </template>
 
