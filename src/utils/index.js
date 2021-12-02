@@ -29,7 +29,7 @@ export function formatDate(date,fmt) {
     * y? -> 0个或者1个y
     * */
     //1.获取年份
-    if ( /(y+)/.test(fmt) ){
+    if ( new RegExp(/(y+)/).test(fmt) ){
       //                                此处下面将一个数字加上一个空字符串就变成字符串-> 简便做法
       fmt = fmt.replace(RegExp.$1,(date.getFullYear()+ '').substr(4-RegExp.$1.length))
     }
