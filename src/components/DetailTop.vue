@@ -42,6 +42,7 @@ export default {
       }
     },
     formatTime(value){
+      if(value == null) return
       return formatDate(value)
     }
   }
