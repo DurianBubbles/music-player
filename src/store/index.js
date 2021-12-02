@@ -144,6 +144,9 @@ const store = new Vuex.Store({
     },
     setmvCount(state,i){
       state.mvCount = i
+    },
+    setplaylistclearn(state){
+      state.playlist = []
     }
   },
   actions: {

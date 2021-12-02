@@ -2,11 +2,10 @@
   <div class="songlist" v-show="getIsShowSonglist">
     <div class="nav">
       <p>播放列表</p>
-      <p>历史记录</p>
     </div>
     <div class="info">
       <p class="total">总共{{ getPlayList.length }}首</p>
-      <div class="remove">
+      <div class="remove" @click="setplaylistclearn">
         <span class="icon"></span>
         <p class="txt">清空</p>
       </div>
@@ -27,19 +26,20 @@
 
 <script>
 import Songlistcard from "base/Songlistcard.vue";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions,mapMutations } from "vuex";
 import { formatDuration } from "@/utils/index.js";
 export default {
   name: "Songlist",
   components: { Songlistcard },
   computed: {
-    ...mapGetters(["getPlayList", "getIsShowSonglist"]),
+    ...mapGetters(["getPlayList", "getIsShowSonglist"])
   },
   methods: {
     changsong(index, id) {
       this.changeScrInfo({ index, id });
     },
     ...mapActions(["changeScrInfo"]),
+    ...mapMutations(['setplaylistclearn'])
   },
   filters: {
     formattime(i) {
@@ -63,7 +63,7 @@ export default {
 .nav {
   height: 40px;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .nav p {
