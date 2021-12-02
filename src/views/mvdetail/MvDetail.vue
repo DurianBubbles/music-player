@@ -1,5 +1,5 @@
 <template>
-  <div class="mvdetail" ref="mvdetail">
+  <div class="mvdetail" ref="mvdetail" @click="setHideSonglist(false),setisShowSearch(false)">
     <div class="wrap">
       <div class="top">
         <p>mv详情</p>
@@ -64,7 +64,7 @@
 <script>
 import CommentCard from "views/lyric/childComps/CommentCard.vue";
 import Pagination from 'base/Pagination.vue'
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapActions,mapMutations } from "vuex";
 export default {
   name: "MvDetail",
   components: { CommentCard,Pagination },
@@ -86,6 +86,7 @@ export default {
       this.getMvCommentInfo({id:this.$route.params.id,limit:20,offset:(page -1 ) *20})
     },
     ...mapActions(["getMvDetailAllInfo","getMvCommentInfo"]),
+    ...mapMutations(['setisShowSearch','setHideSonglist'])
   },
 };
 </script>
