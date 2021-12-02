@@ -1,6 +1,6 @@
 <template>
   <div class="mode">
-    <span class="list" @click="setIsShowSonglist"></span>
+    <span class="list" @click.stop="setIsShowSonglist"></span>
     <span class="sound"></span>
     <Progress :prowidth='prowidth' :proheight='proheight' :innerwidth='innerwidth' @position='setposition'/>
   </div>
