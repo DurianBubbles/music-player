@@ -91,6 +91,7 @@ export default {
 .info .remove {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 .info .remove .icon {
