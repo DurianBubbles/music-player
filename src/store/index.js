@@ -82,6 +82,9 @@ const store = new Vuex.Store({
     setIsShowSonglist(state){
       state.isShowSonglist = !state.isShowSonglist
     },
+    setHideSonglist(state){
+      state.isShowSonglist = false
+    },
     clearplaylist(state){
       state.playlist= []
     },

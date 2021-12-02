@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-header" @click="setisShowSearch(false)">
+  <div class="layout-header" @click="setisShowSearch(false),setHideSonglist(false)">
     <div class="navicon">
       <div class="toHome" @click="gohome">
         <img src="~assets/img/miniplayer/home.svg" alt="">
@@ -93,7 +93,7 @@ export default {
     gohome() {
       this.$router.push("/layout/discovery");
     },
-    ...mapMutations(["setisShowSearch", "setHideLyric"]),
+    ...mapMutations(["setisShowSearch", "setHideLyric",'setHideSonglist']),
     ...mapActions(["getsearchSongs"]),
   },
   computed: {
