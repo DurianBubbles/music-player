@@ -1,7 +1,10 @@
 <template>
-  <div class="miniplayer" @click="setisShowSearch(false),setHideSonglist(false)">
+  <div
+    class="miniplayer"
+    @click="setisShowSearch(false), setHideSonglist(false)"
+  >
     <SongInfo
-      v-if="isShow" 
+      v-if="isShow"
       :nowtime="getNowTime | formatCurrent"
       :imgurl="getMiniCardInfo.songimgurl"
       :name="getMiniCardInfo.songname"
@@ -9,10 +12,16 @@
       :duration="getMiniCardInfo.duration | transform"
     />
     <div class="noneinfo" v-else></div>
-    <Controller @isPlay="isplay"/>
+    <Controller @isPlay="isplay" />
     <Mode @position="setVolume" />
     <MusicProgress :current="progressIndex" @position="setcurrent" />
-    <audio ref="audio" autoplay @timeupdate="refreshTime" :src="getUrl" @ended="end"></audio>
+    <audio
+      ref="audio"
+      autoplay
+      @timeupdate="refreshTime"
+      :src="getUrl"
+      @ended="end"
+    ></audio>
   </div>
 </template>
 
@@ -30,7 +39,7 @@ export default {
   data() {
     return {
       // 播放进度条位置
-      progressIndex: "0%"
+      progressIndex: "0%",
     };
   },
   computed: {
@@ -41,16 +50,17 @@ export default {
       "getUrl",
       "isShow",
       "getLyric",
-      "getlyricIndex"
+      "getlyricIndex",
+      "getPlayList",
     ]),
   },
   methods: {
     refreshTime() {
-      let currentTime = this.$refs.audio.currentTime
+      let currentTime = this.$refs.audio.currentTime;
       this.setNowTime(currentTime);
       this.progressIndex = this.getProgressPosition;
-      if(currentTime.toFixed(0) == this.getLyric[this.getlyricIndex].time){
-        this.setlyricIndex(this.getlyricIndex+1)
+      if (currentTime.toFixed(0) == this.getLyric[this.getlyricIndex].time) {
+        this.setlyricIndex(this.getlyricIndex + 1);
       }
     },
     setcurrent(pos) {
@@ -60,22 +70,30 @@ export default {
     setVolume(pos) {
       this.$refs.audio.volume = pos;
     },
-    isplay(){
-      const audio = this.$refs.audio
-      if(audio.paused){
-        audio.play()
-        this.setisPlay(true)
-      }else{
-        audio.pause()
-        this.setisPlay(false)
+    isplay() {
+      const audio = this.$refs.audio;
+      if (this.getPlayList.length !== 0) {
+        if (audio.paused) {
+          audio.play();
+          this.setisPlay(true);
+        } else {
+          audio.pause();
+          this.setisPlay(false);
+        }
       }
     },
-    end(){
+    end() {
       // 顺序播放
-      this.toNext()
+      this.toNext();
     },
-    ...mapMutations(["setNowTime",'setlyricIndex','setisPlay','setisShowSearch','setHideSonglist']),
-    ...mapActions(['toNext'])
+    ...mapMutations([
+      "setNowTime",
+      "setlyricIndex",
+      "setisPlay",
+      "setisShowSearch",
+      "setHideSonglist",
+    ]),
+    ...mapActions(["toNext"]),
   },
   filters: {
     transform(time) {
@@ -103,7 +121,7 @@ export default {
   z-index: 20;
 }
 
-.noneinfo{
+.noneinfo {
   width: 100px;
   height: 55px;
   background: #fff;

@@ -228,6 +228,9 @@ export default {
   line-height: 35px;
   text-align: left;
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .active{

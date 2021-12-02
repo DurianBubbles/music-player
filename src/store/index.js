@@ -194,12 +194,16 @@ const store = new Vuex.Store({
       })
     },
     toPrev(context){
-      context.state.currentIndex == 0 ? context.commit('setcurrentIndex',context.state.playlist.length-1) : context.commit('setcurrentIndex',context.state.currentIndex -= 1)
+      if(context.state.playlist.length !== 0 ){
+        context.state.currentIndex == 0 ? context.commit('setcurrentIndex',context.state.playlist.length-1) : context.commit('setcurrentIndex',context.state.currentIndex -= 1)
       context.dispatch('changeScrInfo',{index:context.state.currentIndex,id:context.state.playlist[context.state.currentIndex].id})
+      }
     },
     toNext(context){
-      context.state.currentIndex == context.state.playlist.length-1 ? context.commit('setcurrentIndex',0) : context.commit('setcurrentIndex',context.state.currentIndex += 1)
+      if(context.state.playlist.length !== 0){
+        context.state.currentIndex == context.state.playlist.length-1 ? context.commit('setcurrentIndex',0) : context.commit('setcurrentIndex',context.state.currentIndex += 1)
       context.dispatch('changeScrInfo',{index:context.state.currentIndex,id:context.state.playlist[context.state.currentIndex].id})
+      }
     },
     changeScrInfo(context,params){
       //   1.改变currentIndex

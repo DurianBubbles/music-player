@@ -32,7 +32,6 @@
           @keyup.enter="tosearch"
         />
       </div>
-      <i class="el-icon-magic-stick"></i>
     </div>
   </div>
 </template>
