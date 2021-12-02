@@ -1,6 +1,5 @@
 <template>
   <div class="mode">
-    <span class="playtmode"></span>
     <span class="list" @click="setIsShowSonglist"></span>
     <span class="sound"></span>
     <Progress :prowidth='prowidth' :proheight='proheight' :innerwidth='innerwidth' @position='setposition'/>
@@ -44,11 +43,6 @@ export default {
       width: 20px;
       height: 20px;
       margin-right: 20px;
-  }
-
-  .playtmode{
-      background: url(~assets/img/miniplayer/sort.svg) no-repeat center/cover;
-      cursor: pointer;
   }
 
   .list{
