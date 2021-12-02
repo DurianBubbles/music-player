@@ -6,13 +6,14 @@
         <li class="album">专辑</li>
         <li class="duration">时长</li>
     </ul>
-    <SongsCard @click.native="playmusic(index)" :class="{move:isMove(index)}" :num="index" :title="item.name" :art="item.artists.map(item => item.name).join('/')" :album="item.album.name" :duration="item.duration" v-for="(item,index) in getsonglists" :key="index"/>
+    <SongsCard @click.native="playmusic(index)" :class="{move:isMove(index)}" :num="index+1 | formatNum" :title="item.name" :art="item.artists.map(item => item.name).join('/')" :album="item.album.name" :duration="item.duration" v-for="(item,index) in getsonglists" :key="index"/>
   </div>
 </template>
 
 <script>
 import SongsCard from './SongsCard.vue'
 import {mapGetters,mapActions} from 'vuex'
+import {formatNum} from '@utils/index.js'
 export default {
   name:'SearchSongs',
   components:{SongsCard},
@@ -27,6 +28,11 @@ export default {
   },
   computed:{
     ...mapGetters(['getsonglists'])
+  },
+  filters:{
+    formatNum(value){
+      return formatNum(value)
+    }
   }
 }
 </script>
