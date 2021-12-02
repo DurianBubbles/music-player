@@ -1,5 +1,5 @@
 <template>
-  <div class="miniplayer" @click="setisShowSearch(false)">
+  <div class="miniplayer" @click="setisShowSearch(false),setHideSonglist(false)">
     <SongInfo
       v-if="isShow" 
       :nowtime="getNowTime | formatCurrent"
@@ -74,7 +74,7 @@ export default {
       // 顺序播放
       this.toNext()
     },
-    ...mapMutations(["setNowTime",'setlyricIndex','setisPlay','setisShowSearch']),
+    ...mapMutations(["setNowTime",'setlyricIndex','setisPlay','setisShowSearch','setHideSonglist']),
     ...mapActions(['toNext'])
   },
   filters: {
