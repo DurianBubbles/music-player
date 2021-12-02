@@ -13,7 +13,7 @@
 <script>
 import SongsCard from './SongsCard.vue'
 import {mapGetters,mapActions} from 'vuex'
-import {formatNum} from '@utils/index.js'
+import {formatNum} from '@/utils/index.js'
 export default {
   name:'SearchSongs',
   components:{SongsCard},
