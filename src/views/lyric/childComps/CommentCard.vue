@@ -5,15 +5,22 @@
       </div>
       <div class="txt-wrap">
           <p class="cont">{{name}}：<span>{{content}}</span></p>
-          <p class="time">{{time}}</p>
+          <p class="time">{{time | formatTime}}</p>
       </div>
   </div>
 </template>
 
 <script>
+import {formatDate} from '@/utils/index.js'
 export default {
   name:'CommentCard',
-  props:['imgurl','name','content','time']
+  props:['imgurl','name','content','time'],
+  filters:{
+      formatTime(value){
+          let date = new Date(value)
+          return formatDate(date,'yyyy-MM-dd HH:mm:ss')
+      }
+  }
 }
 </script>
 
